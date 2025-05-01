@@ -1,21 +1,17 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        int start = 1;
-        int end = nums.size() - 2;
+        int start = 0;
+        int end = nums.size() - 1;
         // cout << arr[end] << endl;4
 
-        if(nums.size() == 1){
-            return nums[0];
-        }
-        if (nums[0] != nums[1]) {
-            return nums[0];
-        }
-        if (nums[nums.size() - 1] != nums[end]) {
-            return nums[nums.size()-1];
-        }
-        while(start < end){
+        
+        while(start <= end){
         int mid = (start + end)/2;
+
+        if(start == end){
+            return nums[mid];
+        }
 
         if(mid%2 != 0){//odd
             if(nums[mid-1] == nums[mid]){
@@ -35,7 +31,8 @@ public:
         }
     }
 
-    return nums[start];
+    // return nums[start];
+    return -1;
 
 
     }
