@@ -12,7 +12,7 @@ public:
 
         long long low = 0;
         long long high = abs((long long)dividend);
-        long long ans = 0; // long long to prevent overflow
+        long long ans = 0; 
 
         while (low <= high) {
             long long mid = low + (high - low) / 2;
@@ -25,7 +25,6 @@ public:
             }
         }
 
-        // Adjust the sign of the result
         if ((dividend < 0 && divisor > 0) || dividend > 0 && divisor < 0) {
             return -1 * ans;
         }
