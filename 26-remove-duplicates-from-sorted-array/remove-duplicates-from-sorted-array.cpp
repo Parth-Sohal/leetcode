@@ -10,7 +10,7 @@ public:
             }
             else{
                 i++;
-                swap(nums[i],nums[j]);
+                nums[i] = nums[j];
                 j++;
             }
         }
