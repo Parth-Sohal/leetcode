@@ -8,8 +8,6 @@ public:
             mp[nums[i]] = i;
         }
 
-
-
         for (int i = 0; i < nums.size(); i++) {
             if (i == mp[target - nums[i]]) {
                 continue;
