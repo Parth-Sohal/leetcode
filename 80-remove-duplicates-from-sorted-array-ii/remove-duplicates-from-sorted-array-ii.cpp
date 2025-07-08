@@ -4,32 +4,30 @@ public:
         int i = 1;
         int j = 1;
 
-        int currentElement = nums[0];
-        int count = 1;
+        int current = nums[0];
+        int count = 1 ;
 
-        while (j < nums.size()) {
 
-            if (nums[j] == currentElement) {
+        while(j <  nums.size()){
 
-                if (count < 2) {
-                    count++;
-                    nums[i] = nums[j];
-                    i++;
-                }
-
-            }
-
-            else {
-
+            if(nums[j] == current && count < 2){
+                count++;
                 nums[i] = nums[j];
                 i++;
+            }
+
+            else if(nums[j] != current){
                 count = 1;
-                currentElement = nums[j];
+                current = nums[j];
+                nums[i] = nums[j];
+                i++;
             }
 
             j++;
         }
 
+
         return i;
+                
     }
 };
