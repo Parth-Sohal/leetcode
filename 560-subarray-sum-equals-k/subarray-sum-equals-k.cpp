@@ -4,14 +4,17 @@ public:
         unordered_map<int, int> mpp;
         int sum = 0;
         int count = 0;
+
+        mpp[0] = 1 ;
+        
         for (int i = 0; i < nums.size(); i++) {
 
             sum += nums[i];
 
-            if (sum == k) {
-                // cout << 0 << " " << i << endl;
-                count++;
-            }
+            // if (sum == k) {
+            //     // cout << 0 << " " << i << endl;
+            //     count++;
+            // }
 
             auto it = sum - k;
 
