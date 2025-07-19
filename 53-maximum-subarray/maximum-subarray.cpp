@@ -2,21 +2,24 @@ class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
 
-        int sum = 0;
-        int i = 0;
+        // why greedy subarray is contigounus opart 
+
         int maxSum = INT_MIN;
+        int sum = 0 ;
+        int i = 0 ;
 
-        while (i < nums.size()) {
+        while(i < nums.size()){
             sum += nums[i];
+            maxSum = max(sum,maxSum) ;
 
-            maxSum = max(sum, maxSum);
-
-            if (sum < 0) {
+            if(sum < 0){
                 sum = 0;
             }
             i++;
         }
 
-        return maxSum ;
+        return maxSum;
+
+
     }
 };
