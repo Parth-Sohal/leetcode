@@ -25,8 +25,6 @@ public:
                     start++;
                     continue;
                 }
-                // i++;
-                // continue;
             }
 
             sum += nums[i];
