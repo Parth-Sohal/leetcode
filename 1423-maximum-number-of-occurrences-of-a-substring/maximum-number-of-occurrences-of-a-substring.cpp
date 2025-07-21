@@ -15,10 +15,10 @@ public:
             }
         }
 
-        int total = 0;
         int i = minSize - 1;
 
         unordered_map<string, int> mpp;
+        int maxCount  = 0;
 
         while (i < s.size()) {
 
@@ -27,18 +27,13 @@ public:
 
             if (count <= maxLetters) {
                 mpp[sub]++;
-            }
-
-            if (count <= maxLetters) {
-                total++;
+                maxCount = max(maxCount , mpp[sub]);
             }
 
             if ((arr[s[start] - 'a'] - 1) == 0) {
-                // cout << "here ";
                 count--;
             }
 
-            // cout << count << "  ";
             arr[s[start] - 'a']--;
             start++;
 
@@ -47,24 +42,17 @@ public:
             if (i < s.size()) {
                 if (arr[s[i] - 'a'] == 0) {
                     count++;
-                    arr[s[i] - 'a']++;
-                } else {
-                    arr[s[i] - 'a']++;
-                }
-            }
-            // cout << count << "  " << endl;
-        }
-
-        // string ans = "";
-        int max = 0;
-
-        for (auto it : mpp){
-            if(it.second > max){
-                max = it.second;
-                // ans = it.first;
+                } 
+                arr[s[i] - 'a']++;
             }
         }
 
-        return max;
+        // for (auto it : mpp){
+        //     if(it.second > max){
+        //         max = it.second;
+        //     }
+        // }
+
+        return maxCount;
     }
 };
