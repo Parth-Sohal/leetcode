@@ -1,28 +1,25 @@
 class Solution {
 public:
-    void change(vector<vector<int>>& arr, int n) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (j > i) {
-                    swap(arr[i][j], arr[j][i]);
-                }
+    
+    void rotate90Deg(vector<vector<int>>& mat){
+        for(int i = 0 ; i < mat.size()  ;i++){ // rows
+            for(int j = i+1 ; j < mat[i].size() ; j++){
+                swap(mat[i][j] , mat[j][i]);
             }
-            reverse(arr[i].begin(), arr[i].end());
+            reverse(mat[i].begin() , mat[i].end());
         }
     }
+
+
     bool findRotation(vector<vector<int>>& mat, vector<vector<int>>& target) {
-        int n = mat.size();
-        bool val = false;
-        for (int i = 0; i < 4; i++) {
-            change(mat, n);
-            if (mat == target) {
-                val = true;
-                break;
-            }
+        if(mat == target) return true;
+
+        for(int i = 0 ; i < 3 ; i++){
+            rotate90Deg(mat) ;
+            if(mat == target)return true ;
         }
-        if(val){
-            return true;
-        }
+
         return false;
+
     }
 };
