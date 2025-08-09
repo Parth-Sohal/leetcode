@@ -1,27 +1,55 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        
-        for(int i = 0 ; i < matrix.size() ; i++){
-            int start = 0 ;
-            int end = matrix[i].size() - 1;
 
-            while( start <= end ){
-                int mid = (start + end)/2 ;
+        int row = 0;
+        int current = matrix[0].size() - 1;
 
-                if(matrix[i][mid] == target){
-                    return true;
+        int n = matrix.size()-1;
+
+        while(row <= n || current >= 0) {
+            // cout << matrix[row][current] << endl;
+            // cout << row << " " << current << endl;
+            if (matrix[row][current] == target) {
+                // cout << row << " " << current;
+                // cout << endl;
+                return true;
+            }
+
+            if (row == n && current == 0) {
+                // cout << "loop1" << endl;
+                // cout << "Nahi hai element guys " << endl;
+                break;
+            }
+
+            else if (row == n) {
+                // cout << "loop2" << endl;
+                // cout << "hey here " << endl;
+                if (matrix[row][current] < target) {
+                    // cout << "no way" << endl;
+                    break;
+                } else {
+                    current--;
                 }
-                if(matrix[i][mid] > target){
-                    end = mid - 1;
-                } else{
-                    start = mid + 1;
+            } else if (current == 0) {
+                // cout << "loop3" << endl;
+                if (matrix[row][current] > target) {
+                    // cout << "no way" << endl;
+                    break;
+                } else {
+                    row++;
                 }
+            }
 
-            } 
+            else if (matrix[row][current] < target) {
+                // cout << "loop4" << endl;
+                row++;
+            } else {
+                // cout << "loop5" << endl;
+                current--;
+            }
         }
 
         return false;
-        
     }
 };
