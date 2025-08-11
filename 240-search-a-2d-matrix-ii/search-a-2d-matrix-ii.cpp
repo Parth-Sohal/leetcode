@@ -2,10 +2,10 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
 
-        int row = 0;
-        int current = matrix[0].size() - 1;
+        // int row = 0;
+        // int current = matrix[0].size() - 1;
 
-        int n = matrix.size() - 1;
+        // int n = matrix.size() - 1;
 
         // while(row <= n || current >= 0) {
         //     // cout << matrix[row][current] << endl;
@@ -53,17 +53,41 @@ public:
         // return false;
 
 
-        while(row <= n && current >= 0){
-            // cout << matrix[row][current] << endl;
-            if(matrix[row][current] == target){
-                // cout << row << " " << current << endl;
+        // while(row <= n && current >= 0){
+        //     // cout << matrix[row][current] << endl;
+        //     if(matrix[row][current] == target){
+        //         // cout << row << " " << current << endl;
+        //         return true;
+        //     }
+        //     if(matrix[row][current] < target){
+        //         row++;
+        //     }else{
+        //         current--;
+        //     }
+        // }
+
+
+        int currentRow = 0  ;
+
+        int row = matrix.size() ;
+
+        int currentCol = matrix[0].size() - 1 ;
+
+
+        while(currentRow < row && currentCol >= 0){
+
+            if(matrix[currentRow][currentCol] == target){
                 return true;
             }
-            if(matrix[row][current] < target){
-                row++;
-            }else{
-                current--;
+
+            else if(matrix[currentRow][currentCol] < target){
+                currentRow++;
             }
+
+            else {
+                currentCol--;
+            }
+
         }
 
         return false;
