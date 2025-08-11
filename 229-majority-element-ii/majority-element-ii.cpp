@@ -2,20 +2,21 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         
-        int present = nums.size() / 3; 
+        int present = nums.size() / 3 + 1; 
 
         unordered_map<int,int> mpp;
-        
-        set<int> set;
+        vector<int> ans ;
 
         for(int i = 0 ; i < nums.size() ;i++){
             mpp[nums[i]]++;
 
-            if(mpp[nums[i]] > present){
-                set.insert(nums[i]);
+            if(mpp[nums[i]] == present){
+                ans.push_back(nums[i]);
             }
         }
 
-        return vector<int>(set.begin(),set.end());
+        return ans;
+
+
     }
 };
