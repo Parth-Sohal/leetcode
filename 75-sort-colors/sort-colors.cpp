@@ -1,38 +1,59 @@
 class Solution {
 public:
-
-    void dutchFlag(vector<int>& nums){
+    void dutchFLag(vector<int>& arr){
         int low = 0 ;
-        int high = nums.size() - 1 ;
-        int i = 0 ;
+        int mid = 0 ;
+        int high = arr.size() - 1 ;  // mid to high taak unsorted 
+        // low se phele 0 aur low se mid ke beck me 1 
+        while( mid <= high ){
+            if(arr[mid] == 1) mid++;
+            else if (arr[mid] == 0) swap(arr[mid++],arr[low++]);
+            else swap(arr[mid],arr[high--]);
+        }
+    }
 
-        while( i <= high){
-            if(nums[i] == 1){
-                i++;
+
+    void dutcjhFlag2(vector<int>& arr){
+
+        int low = 0 ; 
+        int mid = 0 ; 
+        int n = arr.size() ;
+        int high = n - 1 ;
+
+
+        while( mid <= high ){
+
+            if(arr[mid] == 0){
+                swap(arr[low],arr[mid]);
+                mid++;
+                low++;
             }
 
-            else if(nums[i] == 0){
-                swap(nums[low] , nums[i]);
-                low++;
-                i++;
+            else if(arr[mid] == 1){
+                mid++;
             }
 
             else{
-                swap(nums[high],nums[i]);
+                swap(arr[mid],arr[high]);
                 high--;
             }
+
         }
+
+
+
+
     }
+
+
+
 
     void sortColors(vector<int>& nums) {
         
         // method one  i will count 0 , 1 and 2 and explitclity put in poo
-
         // int countZero = 0 ;
         // int countOne = 0 ;
         // int countTwo = 0 ;
-
-
         // for(int i = 0 ; i < nums.size() ;i++){
         //     if(nums[i] == 0){
         //         countZero++;
@@ -52,10 +73,10 @@ public:
         //     }
         // }
 
-            // method 2 
-            // i pointer jo vhalewg a high se age 2 low se phel 0 
+        // method 2 
+        // i pointer jo vhalewg a high se age 2 low se phel 0 
 
-        dutchFlag(nums);
+        dutcjhFlag2(nums);
 
 
     }
