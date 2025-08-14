@@ -2,25 +2,26 @@ class Solution {
 public:
     int countConsistentStrings(string allowed, vector<string>& words) {
 
-        int arr[26] = {0};
-        int n = allowed.size() ;
+        int allow = 0;
+        int n = allowed.size();
 
         for(int i = 0 ; i < n ; i++){
-            arr[allowed[i] - 'a']++;
+            allow = (allow | (1 << (allowed[i] - 'a'))) ;
         }
 
+        n = words.size() ;
         int count = 0 ;
-        n = words.size();
 
-        for(int i = 0 ; i < n ;i++){
-            bool allow = true;
-            for(int j = 0 ; j < words[i].size() ;j++){
-                if(arr[words[i][j] - 'a'] == 0){
-                    allow =  false ;
-                    break;
-                }
+        for(auto i : words){
+            int word = 0 ; 
+            for(auto j : i){
+                word = (word | (1 << j - 'a'));
             }
-            if(allow)count++;
+
+            if((word & allow) == word){
+                count++;
+            }
+
         }
 
         return count;
