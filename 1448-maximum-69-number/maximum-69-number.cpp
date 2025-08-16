@@ -2,7 +2,6 @@ class Solution {
 public:
     int maximum69Number (int num) {
 
-
     int num1  = 0 ;
     int num2 = 0 ;
     int pow = 1 ;
