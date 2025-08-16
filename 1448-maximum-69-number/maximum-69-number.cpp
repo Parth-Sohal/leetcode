@@ -3,17 +3,22 @@ public:
     int maximum69Number (int num) {
 
 
-        string s = to_string(num);
-
-        for(int i = 0 ; i < s.size() ; i++){
-            if(s[i] == '6'){
-                s[i] = '9' ;
-                break;
-            }
+    int num1  = 0 ;
+    int num2 = 0 ;
+    int pow = 1 ;
+    while(num){
+        int mod = num%10 ;
+        if(mod == 9){
+            num2 = mod*pow + num2;
+        }else{ 
+            num2 = 9*pow + num1;
         }
+        num1 = mod*pow + num1;
+        num = num / 10;
+        pow = pow * 10;
 
-        int num2 =  stoi(s);
-        return num2;
+    }
+    return num2;
 
     }
 };
