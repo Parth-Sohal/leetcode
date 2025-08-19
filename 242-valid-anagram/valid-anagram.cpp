@@ -1,30 +1,12 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        vector<int> arr(26,0);
+        sort(s.begin() , s.end());
+        sort(t.begin() , t.end());
 
-        // vector<int> arr(26,0);
+        if(s == t)return true;
 
+        return false;
 
-        for(int i = 0 ; i < s.size() ;i++){
-            int idx = (int)s[i] - 'a';
-            // cout << idx << "  " << s[i] <<  endl;
-            arr[idx]++;
-        }
-
-        for(int j = 0 ; j < t.size() ;j++){
-            int idx = (int)t[j] - 'a';
-            // cout << idx << "  " << t[j] <<  endl;
-            arr[idx]--;
-        }
-
-        for(int i = 0 ; i<26 ;i++){
-            // cout << arr[i] << " ";
-            if(arr[i]!=0){
-                return false;
-            }
-        }
-
-        return true;
     }
 };
