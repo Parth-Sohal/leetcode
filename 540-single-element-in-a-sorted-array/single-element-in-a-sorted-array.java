@@ -8,7 +8,7 @@ class Solution {
 
             if(mid % 2 == 0){
                 if(nums[mid] == nums[mid+1]){
-                    start = mid + 1;
+                    start = mid + 2;
                 }else{
                     end = mid;
                 }
