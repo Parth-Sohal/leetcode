@@ -17,11 +17,7 @@ class Solution {
             }else{
                 i++;
             }
-            if(count < k){
-                total+=0;
-            }else{
-                total += (count / k);
-            }
+            total += (count / k);
 
         }
   
