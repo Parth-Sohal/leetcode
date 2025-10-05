@@ -6,5 +6,5 @@ Welcome to my LeetCode repository! 🚀 This repo contains my solutions to vario
 This repository serves as a personal collection of LeetCode problem solutions, focused on improving problem-solving skills and sharing efficient C++ techniques.
 
 ## 🛠️ Language Used
-- C++ 💻
+- C++  , Java 💻
 
