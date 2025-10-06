@@ -1,65 +1,39 @@
 class Solution {
-    private boolean make(int[] arr , int day , int bouqutes, int k){
-
-        int i = 0 ;
-        int total = 0 ;
-
-        while(i < arr.length){
-            int count = 0;
-
-            if(arr[i] <= day){
-                count++;
-                i++;
-                while( i < arr.length && arr[i] <= day ){
-                    count++;
-                    i++;
-                }
-            }else{
-                i++;
-            }
-            total += (count / k);
-
-        }
-  
-        if(total >= bouqutes){
-            return true;
-        }
-
-        return false;
-
-    }
-
-
-
     public int minDays(int[] bloomDay, int m, int k) {
-        int n = bloomDay.length;
-
-        if (m * k > n) {
-            return -1;
-        }
-
-        int min = Arrays.stream(bloomDay).min().getAsInt();
-        int max = Arrays.stream(bloomDay).max().getAsInt();
-
-        int low = min;
-        int high = max;
+        int start = Arrays.stream(bloomDay).min().getAsInt();
+        int end = Arrays.stream(bloomDay).max().getAsInt();
 
         int ans = -1;
 
-        while (low <= high) {
+        while (start <= end) {
 
-            int day = (low + high) / 2;
+            int mid = (start + end) / 2;
 
-            if (make(bloomDay, day, m, k)) {
-                ans = day;
-                high = day - 1;
-            } else {
-                low = day + 1;
+            int count = 0;
+            int result = 0;
+            for (int j = 0; j < bloomDay.length; j++) {
+
+                if (bloomDay[j] <= mid) {
+                    count++;
+                } else {
+                    result += (count / k);
+                    count = 0;
+                }
+
             }
 
+            result += (count / k);
+
+            if (result < m) {
+                start = mid + 1;
+            }
+
+            else {
+                ans = mid;
+                end = mid - 1;
+            }
         }
 
-        return ans;
-
+        return ans ;
     }
 }
