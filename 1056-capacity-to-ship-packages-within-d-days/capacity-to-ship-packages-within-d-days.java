@@ -1,52 +1,52 @@
 class Solution {
 
-    private int Days(int[] arr, int max) {
+    private int requiredDays(int[] arr, int k) {
+
+        int sum = 0;
         int count = 0;
         int i = 0;
-        int sum = 0;
+
         while (i < arr.length) {
             sum += arr[i];
-
-            if (sum == max) {
+            if (sum == k) {
                 count++;
                 sum = 0;
-            } else if (sum > max) {
+            } else if (sum > k) {
                 count++;
                 sum = arr[i];
             }
             i++;
-
         }
-        // System.out.println("Count : " + count + ' ' + sum );
+
         if (sum > 0) {
             count++;
         }
-        // System.out.println("Count : " + count);
-        return count;
 
+        // System.out.println("Min day with this " + k + " capacity is  : " + count);
+        return count;
     }
 
-    public int shipWithinDays(int[] weights, int k) {
+
+    public int shipWithinDays(int[] weights, int days) {
         int low = Arrays.stream(weights).max().getAsInt();
         int high = Arrays.stream(weights).sum();
         int ans = -1;
 
         while (low <= high) {
 
-            int days = (low + high) / 2;
+            int mid = low + (high - low) / 2;
 
-            System.out.println("Try Days : " + days);
-            int count = Days(weights, days);
+            int val = requiredDays(weights, mid);
 
-            if (count > k) {
-                low = days + 1;
+            if (val > days) {
+                low = mid + 1;
             } else {
-                ans = days;
-                high = days - 1;
+                ans = mid;
+                high = mid - 1;
             }
 
-        }
 
+        }
         return ans;
     }
 }
