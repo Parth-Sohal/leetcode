@@ -1,39 +1,42 @@
 class Solution {
-    public int minDays(int[] bloomDay, int m, int k) {
-        int start = Arrays.stream(bloomDay).min().getAsInt();
-        int end = Arrays.stream(bloomDay).max().getAsInt();
+    private boolean helper(int[] arr, int m, int k, int day) {
+        int count = 0;
+        int res = 0;
 
-        int ans = -1;
-
-        while (start <= end) {
-
-            int mid = (start + end) / 2;
-
-            int count = 0;
-            int result = 0;
-            for (int j = 0; j < bloomDay.length; j++) {
-
-                if (bloomDay[j] <= mid) {
-                    count++;
-                } else {
-                    result += (count / k);
-                    count = 0;
-                }
-
-            }
-
-            result += (count / k);
-
-            if (result < m) {
-                start = mid + 1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] <= day) {
+                count++;
             }
 
             else {
-                ans = mid;
-                end = mid - 1;
+                res += (count / k);
+                count = 0;
             }
         }
 
-        return ans ;
+        res += (count / k);
+
+        return res >= m;
+
+    }
+
+    public int minDays(int[] bloomDay, int m, int k) {
+
+        if ((long) m * k > bloomDay.length)
+            return -1;
+
+        int low = Arrays.stream(bloomDay).min().getAsInt();
+        int high = Arrays.stream(bloomDay).max().getAsInt();
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (helper(bloomDay, m, k, mid)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+
     }
 }
