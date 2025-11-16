@@ -1,22 +1,19 @@
 class Solution {
+    public int[] shuffle(int[] nums, int n) {
 
-    public int[] shuffle(int[] arr, int n) {
-        int length = arr.length;
-        int[] ans = new int[length];
+        int[] ans = new int[2*n];
+        int i = 0 ;
+        int j = n;
+        int k = 0 ;
 
-        int i = 0;
-        int j = 0;
-        while (i < n) {
+        while(i < n && j < nums.length){
 
-            // System.out.println(arr[i] + " " + arr[i + n]);
-            ans[j] = arr[i];
-            ans[++j] = arr[(i + n)];
-            i++;
-            j++;
+            ans[k++] = nums[i++];
+            ans[k++] = nums[j++];
 
         }
 
-        return ans ; 
+        return ans ;
+        
     }
-
 }
