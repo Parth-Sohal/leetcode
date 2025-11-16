@@ -5,9 +5,10 @@ class Solution {
         long total = 0 ;
         int i = 0 ;
         long mod = 1000000007;
+        int l = s.length();
 
 
-        while(i <  s.length()){
+        while(i <  l){
 
             if(s.charAt(i) == '0'){
                 i++;
@@ -16,7 +17,7 @@ class Solution {
             else{
                 int count = 0 ;
 
-                while(i < s.length() && s.charAt(i) == '1'){
+                while(i < l && s.charAt(i) == '1'){
                     count++;
                     i++;
                 }
