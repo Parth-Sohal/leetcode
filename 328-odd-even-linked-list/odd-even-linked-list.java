@@ -12,26 +12,28 @@ class Solution {
     public ListNode oddEvenList(ListNode head) {
 
         if(head == null){
-            return head; 
+            return null;
         }
 
-        ListNode odd = head;
-        ListNode even = odd.next;
-        ListNode temp = even;
+        ListNode odd = head ;
+        ListNode even = head.next ;
+        ListNode evenHead = even;
 
-        while (even != null && even.next != null) {
-            ListNode nextOdd = even.next;
-            ListNode nextEven = nextOdd.next;
+        while(even != null && even.next != null) {
+            ListNode nextOdd = even.next ;
+            ListNode nextEven = nextOdd.next ; 
 
-            odd.next = nextOdd;
-            even.next = nextEven;
+            odd.next = nextOdd ;
+            even.next = nextEven ; 
 
             odd = nextOdd;
             even = nextEven;
-
         }
 
-        odd.next = temp;
-        return head; 
+        odd.next = evenHead ;
+
+        return head ; 
+
+
     }
 }
