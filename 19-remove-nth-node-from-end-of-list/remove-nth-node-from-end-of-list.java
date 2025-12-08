@@ -29,14 +29,8 @@ class Solution {
         }
 
 
-        if(slow.next == head){
-            head = head.next ;
-            return head ;
-        }
-
-        slow.next  = slow.next.next ;
-
-        return head ;
+        slow.next = slow.next.next ;
+        return dummy.next ; 
 
     }
 }
