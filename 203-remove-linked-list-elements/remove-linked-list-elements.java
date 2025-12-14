@@ -12,12 +12,15 @@ class Solution {
     public ListNode removeElements(ListNode head, int val) {
 
         if(head == null){
-            return null;
+            return null ;
         }
 
-        ListNode prev = new ListNode(-1);
+
+        ListNode prev = new ListNode(-1);   
         ListNode newHead = prev ;
+
         ListNode temp = head ;
+
 
         while(temp != null){
 
@@ -25,15 +28,14 @@ class Solution {
                 prev.next = temp ;
                 prev = temp ;
             }
-
             temp = temp.next ;
+
         }
 
-        prev.next = null ;
+
+        prev.next = null;
 
         return newHead.next ;
-
-
 
         
     }
