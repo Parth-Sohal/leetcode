@@ -1,35 +1,38 @@
 class Solution {
     public boolean isValid(String s) {
-
-        Stack<Character> stack = new Stack<>();
+        
+        Stack<Character> st = new Stack<>();
 
         for (int i = 0; i < s.length(); i++) {
+
             char ch = s.charAt(i);
-            if (ch == '{' || ch == '(' || ch == '[') {
-                stack.push(ch);
 
-            } else {
+            if (ch == '(' || ch == '[' || ch == '{') {
+                st.push(ch);
+            }
 
-                if (!stack.isEmpty()) {
-                    if (ch == '}' && stack.peek() == '{') {
-                        stack.pop();
-                    } else if (ch == ')' && stack.peek() == '(') {
-                        stack.pop();
-                    } else if (ch == ']' && stack.peek() == '[') {
-                        stack.pop();
-                    } else if (ch == '}' && stack.peek() == '{') {
-                        stack.pop();
+            else {
+
+                if (st.isEmpty()) {
+                    System.out.println("Invalid Prathansis");
+                    return false;
+                }
+
+                else {
+                    if (ch == '}' && st.peek() == '{') {
+                        st.pop();
+                    } else if (ch == ']' && st.peek() == '[') {
+                        st.pop();
+                    } else if (ch == ')' && st.peek() == '(') {
+                        st.pop();
                     } else {
                         return false;
                     }
-                }else{
-                    stack.push(ch);
                 }
 
             }
-        }
-        
-        return (stack.isEmpty());
 
+        }
+        return st.isEmpty();
     }
 }
