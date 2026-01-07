@@ -10,20 +10,20 @@ class Solution {
     public void deleteNode(ListNode node) {
 
 
-        ListNode temp = node ; 
-        
-        while(temp != null){
+        ListNode temp = node ;
+
+
+        while(temp.next.next != null){
 
             temp.val = temp.next.val ;
-            ListNode Next = temp.next ;
-            if(Next.next == null){
-                temp.next = null;
-                break;
-            }
-
             temp = temp.next ;
 
+
         }
+        temp.val = temp.next.val ;
+        temp.next = null ;
+
+        
         
     }
 }
