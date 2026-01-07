@@ -1,5 +1,5 @@
 /**
- * Definition for singly-linked 
+ * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
@@ -8,43 +8,28 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-
 class Solution {
     public boolean isPalindrome(ListNode head) {
+        
+        Stack<Integer> stack = new Stack<>();
 
-        if (head == null || head.next == null) {
-            return true;
+        ListNode temp = head ;
+
+        while(temp != null){
+            stack.push(temp.val);
+            temp = temp.next ;
         }
 
-        ListNode fast = head;
-        ListNode slow = head;
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
+        temp = head ;
 
-        ListNode limit = slow;
-
-
-        ListNode prev = null;
-        while (limit != null) {
-            ListNode next = limit.next;
-            limit.next = prev;
-            prev = limit;
-            limit = next;
-        }
-
-        ListNode newHead = prev;
-        ListNode temp = head;
-
-        while (newHead != null && temp != slow) {
-            if (newHead.val != temp.val) {
-                return false ;
+        while(temp != null){
+            if(temp.val != stack.pop()){
+                return false;
             }
-            
-            newHead = newHead.next;
-            temp = temp.next;
+
+            temp = temp.next ;
+
         }
 
         return true ;
