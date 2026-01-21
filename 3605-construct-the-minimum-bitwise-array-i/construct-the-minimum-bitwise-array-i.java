@@ -1,25 +1,40 @@
 class Solution {
 
-    private int numGot(int n) {
-
-        for (int i = 1; i < n; i++) {
-            if ((i | i + 1) == n)
-                return i;
-        }
-
-        return -1;
-
-    }
+   
 
     public int[] minBitwiseArray(List<Integer> nums) {
 
-        int[] arr = new int[nums.size()];
+        int[] ans = new int[nums.size()];
+        int idx = 0 ;
+        for(int i : nums) {
 
-        for (int i = 0; i < nums.size(); i++) {
+            int k = i ;
+            int j = 1 ;
 
-            arr[i] = numGot(nums.get(i));
+
+            while((k & j) != 0) {
+                j = j << 1;
+            }
+
+            j  = j >> 1;
+
+            k = j ^ k ;
+
+            if((k | k + 1) == i){
+                ans[idx++] = k ;
+//                System.out.println(k);
+            }
+
+            else{
+                ans[idx++] = -1;
+//                System.out.println(-1);
+            }
+            
         }
 
-        return arr ;
+        return ans ;
+
+
+
     }
 }
