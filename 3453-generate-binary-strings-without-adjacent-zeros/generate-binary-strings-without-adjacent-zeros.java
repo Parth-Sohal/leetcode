@@ -8,13 +8,13 @@ class Solution {
             return finalAns;
         }
 
-
-
-        binary(num+1 , n , ans + "1" ,finalAns);
-
         if(ans.isEmpty() || ans.charAt(ans.length()-1) == '1'){
             binary(num+1 , n , ans+'0' , finalAns);
         }
+
+        binary(num+1 , n , ans + "1" ,finalAns);
+
+        
 
         return finalAns;
 
