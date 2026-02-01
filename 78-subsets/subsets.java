@@ -1,25 +1,30 @@
 class Solution {
 
-    static void subset(int[] num , int idx , ArrayList<Integer> list ,List<List<Integer>> ans ){
-        if(idx == num.length){
+    public  List<List<Integer>> printSubsequnce1(int[] arr, int idx, ArrayList<Integer> list, List<List<Integer>> lists) {
 
-            ans.add(list);
-
-            return ;
+        if (idx == arr.length) {
+            // System.out.println(list);
+            lists.add(new ArrayList<>(list));
+            return lists;
         }
 
-        subset(num, idx + 1, list , ans);
-        ArrayList<Integer> newList = new ArrayList<>(list);
-        newList.add(num[idx]);
-        subset(num, idx + 1, newList ,ans);
+
+        // exculde
+
+        printSubsequnce1(arr, idx + 1, list, lists);
+
+        // include
+
+        list.add(arr[idx]);
+        printSubsequnce1(arr, idx + 1, list, lists);
+        list.remove(list.size() - 1);
+
+        return lists;
+
     }
 
-    public List<List<Integer>> subsets(int[] nums) {
 
-        ArrayList<Integer> list = new ArrayList<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        subset(nums , 0 , list , ans  );
-        return ans ; 
-        
+    public List<List<Integer>> subsets(int[] nums) {
+        return printSubsequnce1(nums,0,new ArrayList<>() , new ArrayList<>()); 
     }
 }
