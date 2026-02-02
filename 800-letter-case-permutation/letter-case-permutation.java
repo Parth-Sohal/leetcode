@@ -1,7 +1,7 @@
 class Solution {
 
     public List<String> letterCasePermutation(String s , int idx , String ans , List<String> list) {
-                                                                
+
         if (idx == s.length()) {
             list.add(new String(ans));
             return list;
