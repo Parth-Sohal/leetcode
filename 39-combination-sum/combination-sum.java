@@ -1,28 +1,29 @@
 class Solution {
 
-    public  List<List<Integer>> sum(int[] arr , int currSum ,int target , List<Integer> list, int idx , List<List<Integer>> lists) {
-
-        if(currSum == target){
+    public  List<List<Integer>> combination1(int[] arr , int idx , List<Integer> list ,  int sum ,int k , List<List<Integer>> lists ){
+        
+        if(sum > k)return lists;
+        
+        if(sum == k){
             // System.out.println(list);
-            lists.add(new ArrayList<>(list));
+            lists.add(new ArrayList<>(list) );
             return lists;
         }
-
-        if(currSum > target){
-            return lists;
-        }
-
+        
+        
         for(int i = idx ; i < arr.length ; i++){
             list.add(arr[i]);
-            sum(arr,currSum+arr[i],target,list,i,lists);
-            list.remove(list.size()-1);
+            combination1(arr,i ,list,sum+arr[i] ,k ,lists);
+            list.remove(list.size() - 1);
         }
-
+        
+        
         return lists;
-
+        
+        
     }
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        return sum(candidates,0,target, new ArrayList<>() ,0,new ArrayList<>());
+        return combination1(candidates , 0 , new ArrayList<>(),  0 ,target  , new ArrayList<>() );
     }
 }
