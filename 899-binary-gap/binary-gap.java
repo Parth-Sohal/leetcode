@@ -10,7 +10,7 @@ class Solution {
             int currDigi = (n & 1);
 
             if (currDigi == 1) {
-                System.out.println(count + " " + last);
+                // System.out.println(count + " " + last);
                 if (last != -1)
                     max = Math.max(max, count - last);
                 last = count;
