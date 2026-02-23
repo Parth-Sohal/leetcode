@@ -14,7 +14,7 @@ class Solution {
             set.add(sb.toString());
         }
 
-        if(set.size() == (int)Math.pow(2,k)){
+        if(set.size() == 1 << k){
             return true ;
         }
 
