@@ -21,13 +21,13 @@ class Solution {
                 }
             }
 
-            System.out.println(stack);
+            // System.out.println(stack);
 
         }
 
         int sum = 0;
 
-        System.out.println(stack);
+        // System.out.println(stack);
 
         while (!stack.isEmpty()) {
             sum += stack.pop();
