@@ -2,45 +2,38 @@ class Solution {
     public int numSteps(String s) {
 
         StringBuilder sb = new StringBuilder(s);
-
-        // System.out.println(sb);
+        int i = sb.length() - 1;
         int count = 0;
-        while (sb.length() > 1) {
+        int lastOne = 0;
 
-            char ch = sb.charAt(sb.length() - 1);
+        while (i > 0) {
 
-            if (ch == '0') {
-                sb.deleteCharAt(sb.length() - 1);
+            if (sb.charAt(i) == '1') {
+                count++;
+
+                while (i >= 0 && sb.charAt(i) == '1') {
+                    count++;
+                    i--;
+                }
+
+                if (i == -1) {
+                    //                    count++;
+                    break;
+                }
+
+                else {
+                    sb.setCharAt(i, '1');
+                }
             }
 
             else {
-                int j = sb.length() - 1;
-
-                while (j >= 0 && sb.charAt(j) == '1') {
-                    sb.setCharAt(j, '0');
-                    j--;
-                }
-
-                if (j == -1) {
-                    sb.setCharAt(0, '1');
-                    sb.append('0');
-                }
-
-                
-                else{
-                    sb.setCharAt(j, '1');
-                }
-
+                count++;
+                i--;
             }
-
-            // System.out.println(sb.toString());
-            count++;
 
         }
 
-        // System.out.println(count);
-
-        return count ; 
+        return count;
 
     }
 }
