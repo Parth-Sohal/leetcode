@@ -2,15 +2,6 @@ class Solution {
     public int minOperations(String s) {
 
 
-        // 0 1 0 0 
-        // a b a b
-
-        // 1 1 1 1 0
-        // a a a a b
-
-        // 0 1 0 1 0
-        // 1 0 1 0 1
-
         int count = 0 ;
 
         int mnOneStart = 0 ;
