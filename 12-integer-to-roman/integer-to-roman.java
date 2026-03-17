@@ -1,74 +1,23 @@
 class Solution {
     public String intToRoman(int num) {
+        int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL",
+                "X", "IX", "V", "IV", "I"} ;
 
-        int curr = 1;
+
         StringBuilder sb = new StringBuilder();
 
-        while (num > 0) {
+        for(int i = 0 ; i < values.length ; i++){
 
-            int mod = num % 10;
+            while(num >= values[i]){
 
-            if (curr == 1) {
-
-                if (mod == 4) {
-                    sb.append("VI");
-                } else if (mod == 9) {
-                    sb.append("XI");
-                } else {
-
-                    for (int i = 0; i < mod % 5; i++)
-                        sb.append("I");
-                    if (mod >= 5)
-                        sb.append("V");
-
-                }
+                sb.append(symbols[i]);
+                num -= values[i];
 
             }
-
-            else if (curr == 10) {
-
-                if (mod == 4) {
-                    sb.append("LX");
-                } else if (mod == 9) {
-                    sb.append("CX");
-                } else {
-                    for (int i = 0; i < mod % 5; i++)
-                        sb.append("X");
-                    if (mod >= 5)
-                        sb.append("L");
-                }
-
-            }
-
-            else if (curr == 100) {
-
-                if (mod == 4) {
-                    sb.append("DC");
-                } else if (mod == 9) {
-                    sb.append("MC");
-                } else {
-                    for (int i = 0; i < mod % 5; i++)
-                        sb.append("C");
-                    if (mod >= 5)
-                        sb.append("D");
-                }
-
-            }
-
-            else {
-                for (int i = 0; i < mod; i++) {
-                    sb.append("M");
-                }
-            }
-
-            curr *= 10;
-            num = num / 10;
 
         }
 
-        return sb.reverse().toString();
-
+        return sb.toString();
     }
 }
-
-//MMMDCCXLIX
