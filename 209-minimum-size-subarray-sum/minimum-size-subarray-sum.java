@@ -3,9 +3,6 @@ class Solution {
         int start = 0;
         int sum = 0 ;
 
-        int arrSum = Arrays.stream(arr).sum();
-        if(arrSum < k)return 0 ; 
-
 
         int j = 0 ;
         int min = Integer.MAX_VALUE ;
@@ -30,7 +27,7 @@ class Solution {
 
         }
 
-        
-        return min ; 
+        return min == Integer.MAX_VALUE ? 0 : min;
+
     }
 }
