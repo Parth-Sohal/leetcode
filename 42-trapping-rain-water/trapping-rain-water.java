@@ -1,29 +1,27 @@
 class Solution {
     public int trap(int[] arr) {
 
-        int[] leftMaxArr = new int[arr.length];
-        int[] rightMaxArr = new int[arr.length];
+        int leftMax = arr[0];
+        int rightMax = arr[arr.length  - 1] ;
 
-        int leftMax = Integer.MIN_VALUE;
-        int rightMax = Integer.MIN_VALUE;
+        int i = 0 ;
+        int j = arr.length - 1 ;
+        int count = 0 ;
 
-        for (int i = 0; i < arr.length; i++) {
+        while(i < j){
 
-            leftMax = Math.max(leftMax, arr[i]);
-            rightMax = Math.max(rightMax, arr[arr.length - 1 - i]);
+            if(leftMax <= rightMax){
+                i++;
+                leftMax = Math.max(leftMax,arr[i]);
+                count += (leftMax - arr[i]);
+            }
 
-            leftMaxArr[i] = leftMax;
-            rightMaxArr[arr.length-1-i] = rightMax;
-        }
+            else{
+                j--;
+                rightMax = Math.max(rightMax,arr[j]);
+                count += (rightMax - arr[j]);
+            }
 
-        // System.out.println(Arrays.toString(arr));
-        // System.out.println(Arrays.toString(leftMaxArr));
-        // System.out.println(Arrays.toString(rightMaxArr));
-
-        int count = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            count += ((Math.min(leftMaxArr[i], rightMaxArr[i])) - arr[i]);
         }
 
         return count ; 
