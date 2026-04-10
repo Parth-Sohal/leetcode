@@ -12,7 +12,7 @@ class Solution {
 
                 // last neg or empty direct push
 
-                while (!st.isEmpty() && st.peek() >= 0 && st.peek() < Math.abs(i)) {
+                while (!st.isEmpty() && st.peek() > 0 && st.peek() < Math.abs(i)) {
                     st.pop();
                 }
 
@@ -22,11 +22,9 @@ class Solution {
                 }
 
             
-                if (!st.isEmpty() && st.peek() >= 0 && st.peek() > Math.abs(i)) {
-                    continue;
-                } else {
+                if (st.isEmpty() || st.peek() < 0 || st.peek() < Math.abs(i)) {
                     st.push(i);
-                }
+                } 
 
             }
             // System.out.println(st);
