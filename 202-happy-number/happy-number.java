@@ -1,42 +1,27 @@
 class Solution {
-    public int happy(int n, int sum) {
-        if (n == 0) {
-            return sum;
-        }
 
-        int m = n % 10;
-        sum += (m * m);
+    public static int sumSquare(int n){
+        if( n== 0)return 0 ;
 
-        return happy(n / 10, sum);
+        int mod = n % 10 ;
+        return mod*mod + sumSquare(n/10);
 
     }
 
     public boolean isHappy(int n) {
 
-        if (n == 1)
-            return true;
-
         HashSet<Integer> set = new HashSet<>();
 
-        while (true) {
+        int temp = n ;
 
-            int ans = happy(n, 0);
-            //            System.out.println(ans);
-
-            if (ans == 1) {
-                return true;
-            }
-
-            //            System.out.println(set);
-
-            if (set.contains(ans)) {
-                return false;
-            }
-
-            set.add(ans);
-            n = ans;
-
+        while(temp != 1){
+            temp = sumSquare(temp);
+            if(set.contains(temp))return false ;
+            set.add(temp);
         }
+
+        return true ; 
+
 
     }
 }
