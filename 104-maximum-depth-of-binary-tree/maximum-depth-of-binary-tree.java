@@ -24,7 +24,45 @@ class Solution {
 
     }
 
+    public static int maxDepth2(TreeNode root){
+        // bfs
+
+        if(root == null){
+            return 0 ;
+        }
+
+        Queue<TreeNode> q= new LinkedList<>();
+        q.add(root);
+        int ans =  0 ;
+
+        while(!q.isEmpty()){
+
+            int size = q.size();
+
+            for(int i = 0 ; i < size ; i++){
+
+                TreeNode temp = q.poll();
+
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+
+            }
+
+            ans++;
+
+
+        }
+
+        return ans;
+
+
+    }
+
     public int maxDepth(TreeNode root) {
-        return maxDepth1(root);
+        return maxDepth2(root);
     }
 }
