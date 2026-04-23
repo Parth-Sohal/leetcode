@@ -1,35 +1,26 @@
 class Solution {
-    public int[] getSumAbsoluteDifferences(int[] nums) {
+    public int[] getSumAbsoluteDifferences(int[] arr) {
+        
+        int[] leftPRf =  new int[arr.length];
+       int[] ans = new int[arr.length];
 
-        int[] leftPRf = new int[nums.length];
-        int[] rightPRf = new int[nums.length];
+       int sumLeft = 0 ;
+       int sumRight = 0 ;
 
-        int sumLeft = 0;
-        int sumRight = 0;
-
-        for (int i = 0; i < nums.length; i++) {
-            leftPRf[i] = sumLeft;
-            sumLeft += nums[i];
-        }
-
-        for (int i = nums.length - 1; i >= 0; i--) {
-            rightPRf[i] = sumRight;
-            sumRight += nums[i];
-        }
-
-        int[] ans = new int[nums.length];
-
-        for (int i = 0; i < nums.length; i++) {
-
-            int leftNumber = i;
-            int rightNumber = nums.length - i - 1;
-
-            ans[i] = Math.abs(leftPRf[i] - ((nums[i]) * leftNumber)) + Math.abs(rightPRf[i] - ((nums[i]) * rightNumber));
-
-        }
+       for(int i = 0 ; i < arr.length ; i++){
+           leftPRf[i] = sumLeft;
+           sumLeft += arr[i];
+       }
 
 
-        return ans ; 
+       for(int i = arr.length - 1 ; i >= 0 ; i--){
+           int countRight = arr.length -1 - i;
+
+           ans[i] = Math.abs(leftPRf[i] - (i * arr[i])) + Math.abs(sumRight - ( countRight * arr[i]));
+           sumRight += arr[i];
+       }
+
+       return ans  ; 
 
     }
 }
