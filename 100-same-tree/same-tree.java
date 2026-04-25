@@ -15,26 +15,26 @@
  */
 class Solution {
 
-    public static boolean sameTree(TreeNode q1, TreeNode q2) {
+    public static boolean isSame(TreeNode a , TreeNode b){
 
-        if (q1 == null && q2 == null) {
-            return true;
+
+        if(a == null || b == null){
+            return a == b;
         }
-        if ((q1 == null && q2 != null) || (q2 == null && q1 != null)) {
+
+        if(a.val != b.val){
             return false;
         }
-        if (q1.val != q2.val) {
-            return false;
-        }
 
-        boolean ans = sameTree(q1.left, q2.left) && sameTree(q1.right, q2.right);
-        return ans;
 
+        return isSame(a.left , b.left) && isSame(a.right , b.right); 
     }
 
+
+
+
+
     public boolean isSameTree(TreeNode p, TreeNode q) {
-
-        return sameTree(p,q);
-
+        return isSame(p,q);
     }
 }
