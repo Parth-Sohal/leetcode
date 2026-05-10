@@ -15,26 +15,61 @@
  */
 class Solution {
 
-    public static void mirrorTree(TreeNode root){
+    public TreeNode mirrorTree2(TreeNode root) {
 
         if(root == null){
-            return ;
+            return null ;
         }
 
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
 
-        mirrorTree(root.left);
-        mirrorTree(root.right);
 
+        while (!queue.isEmpty()) {
+            int size = queue.size();
 
-        TreeNode temp =  root.left;
-        root.left = root.right;
-        root.right = temp;
+            for (int i = 0; i < size; i++) {
+
+                TreeNode temp = queue.poll();
+
+                if (temp.left != null) {
+                    queue.add(temp.left);
+                }
+                if (temp.right != null) {
+                    queue.add(temp.right);
+                }
+
+                TreeNode curr = temp.left;
+                temp.left = temp.right;
+                temp.right = curr;
+
+            }
+
+        }
+
+        return root ; 
+
 
 
     }
 
+    public static void mirrorTree(TreeNode root) {
+
+        if (root == null) {
+            return;
+        }
+
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+    }
+
     public TreeNode invertTree(TreeNode root) {
-        mirrorTree(root);
-        return root ; 
+        mirrorTree2(root);
+        return root;
     }
 }
