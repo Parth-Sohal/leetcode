@@ -39,20 +39,13 @@ class Solution {
         }
 
 
-        if(p.val == q.val){
-            if(same(p,q)){
-                return true ; 
-            }
-
-            else{
-                return isSub(p.left , q) || isSub(p.right , q); 
-            }
+        if(same(p,q)){
+            return true;
         }
 
-
-        else{
+        
             return isSub(p.left , q) || isSub(p.right , q); 
-        }
+        
 
     }
 
