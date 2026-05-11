@@ -53,7 +53,26 @@ class Solution {
 
     }
 
+
+    public static List<Integer> right(TreeNode root, List<Integer> list , int level){
+
+        if(root == null){
+            return list ;
+        }
+
+        if(level == list.size()){
+            list.add(root.val);
+        }
+
+        right(root.right,list,level+1);
+        right(root.left,list,level+1);
+
+
+        return list ;
+
+    }
+
     public List<Integer> rightSideView(TreeNode root) {
-        return rightView(root); 
+        return right(root , new ArrayList<>() , 0); 
     }
 }
