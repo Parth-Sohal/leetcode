@@ -22,13 +22,13 @@ class Solution {
             return a == b ;
         }
 
+
         if(a.val != b.val){
-            return false ; 
+            return false ;
         }
 
 
-        return same(a.left , b.left ) && same(a.right , b.right);
-
+        return same(a.left , b.left) && same(a.right,b.right);
 
 
     }
