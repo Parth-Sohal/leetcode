@@ -11,56 +11,51 @@
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        ListNode a = l1;
-        ListNode b = l2 ;
+        ListNode dummy = new ListNode(-1) ;
+        ListNode temp = dummy ; 
+
         int carry = 0 ;
 
-        int tsum = a.val + b.val ;
-        ListNode head  = new ListNode( tsum % 10) ;
-        ListNode tail = head ;
-        carry = tsum / 10 ;
-        a = a.next ;
-        b = b.next ;
 
-        while(a != null && b != null){
-            int sum = a.val + b.val + carry;
-            int mod = sum % 10 ;
-            ListNode temp = new ListNode(mod);
-            tail.next = temp ;
-            tail = tail.next ;
-            carry = sum / 10;
-            a = a.next;
-            b = b.next;
+        while(l1 != null && l2 != null){
+            int sum = carry + l1.val + l2.val ; 
+            ListNode newVal = new ListNode(sum % 10) ;
+            temp.next = newVal ; 
+            temp = temp.next ;
+            carry = sum / 10 ;
+            l1 = l1.next ;
+            l2 = l2.next ; 
         }
 
-        while(a != null){
-            int sum   = a.val + carry;
-            int mod = sum % 10;
-            ListNode temp = new ListNode(mod);
-            tail.next = temp ;
-            tail = tail.next ;
-            carry = sum / 10;
-            a = a.next;
+
+        while(l1 != null ){
+            int sum = carry + l1.val  ; 
+            ListNode newVal = new ListNode(sum % 10) ;
+            temp.next = newVal ; 
+            carry = sum / 10 ;
+            l1 = l1.next ;
+            temp = temp.next ;
         }
 
-        while(b != null){
-            int sum = b.val + carry;
-            int mod = sum % 10;
-            ListNode temp = new ListNode(mod);
-            tail.next = temp ;
-            tail = tail.next ;
-            carry = sum / 10;
-            b = b.next;
+        while(l2 != null ){
+            int sum = carry + l2.val  ; 
+            ListNode newVal = new ListNode(sum % 10) ;
+            temp.next = newVal ; 
+            carry = sum / 10 ;
+            l2 = l2.next ;
+            temp = temp.next ;
         }
 
-        while(carry > 0){
-            ListNode temp = new ListNode(carry % 10);
-            tail.next = temp ;
-            tail = tail.next ;
-            carry = carry/10;
+        while(carry  != 0 ){
+            ListNode newVal = new ListNode(carry % 10) ;
+            temp.next = newVal ; 
+            carry = carry / 10 ;
+            temp = temp.next ;
         }
 
-        return head ;
+
+        return dummy.next ; 
+
         
     }
 }
