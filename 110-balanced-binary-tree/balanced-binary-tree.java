@@ -15,30 +15,35 @@
  */
 class Solution {
 
-    public static int balanced(TreeNode root , boolean[] ans){
+    public static int balanced(TreeNode root ){
 
         if(root == null){
             return 0 ;
         }
 
-        int left = 1 + balanced(root.left,ans);
-        int right = 1 + balanced(root.right,ans);
+        int left = balanced(root.left);
 
-        if(Math.abs(left-right) > 1){
-            ans[0] = false ;
+        if(left == -1){
+            return -1;
         }
 
-        return Math.max(left, right);
+        int right = balanced(root.right);
+
+        if(right == -1){
+            return -1;
+        }
+
+        if(Math.abs(left-right) > 1){
+            return -1;
+        }
+
+        return Math.max(left, right) + 1;
 
     }
 
     public boolean isBalanced(TreeNode root) {
 
-        boolean[] ans = new boolean[1];
-        ans[0] = true;
-
-        balanced(root,ans) ;
-
-        return ans[0] ;
+        return balanced(root) != -1 ; 
+    
     }
 }
