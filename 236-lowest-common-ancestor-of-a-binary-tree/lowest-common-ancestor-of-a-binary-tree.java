@@ -18,7 +18,7 @@ class Solution {
         boolean right = lowestCommonAns(root.right, p, q, ans);
 
         if (left && right) {
-            System.out.println(root.val + " ");
+            // System.out.println(root.val + " ");
             ans[0] = root;
             return true;
         }
@@ -26,7 +26,7 @@ class Solution {
         if (left || right) {
             if (root == p || root == q) {
                 ans[0] = root;
-                System.out.println(root.val + " ");
+                // System.out.println(root.val + " ");
             }
             return true;
         }
