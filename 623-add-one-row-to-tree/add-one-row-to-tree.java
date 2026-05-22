@@ -81,7 +81,45 @@ class Solution {
 
     }
 
+
+    public static void addRow2(TreeNode root , int level , int val , int depth){
+
+        if(root == null){
+            return ; 
+        }
+
+        if(level == depth - 1) {
+
+            TreeNode a = new TreeNode(val) ;
+            TreeNode b = new TreeNode(val) ;
+
+            TreeNode prevLeft = root.left ;
+            TreeNode prevRight = root.right ; 
+
+            root.left = a ;
+            a.left = prevLeft ;
+
+            root.right = b ;
+            b.right = prevRight ; 
+
+            return ;  
+
+        }
+
+
+        addRow2(root.left , level +  1 , val , depth) ;
+        addRow2(root.right , level +  1 , val , depth) ;
+
+        
+    }
+
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
-        return addRow(root,val,depth) ;
+        if (1 == depth) {
+            TreeNode temp = new TreeNode(val);
+            temp.left = root;
+            return temp;
+        }
+        addRow2(root , 1, val , depth) ;
+        return root ; 
     }
 }
