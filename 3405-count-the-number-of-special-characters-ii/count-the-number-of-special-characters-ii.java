@@ -4,46 +4,34 @@ class Solution {
         int[] smallAplha = new int[26];
         int[] largeAplha = new int[26];
 
+        Arrays.fill(smallAplha, -1);
+        Arrays.fill(largeAplha, -1);
+
         for (int i = 0; i < word.length(); i++) {
 
             char ch = word.charAt(i);
 
-            int idx = ch - 'a';
-            if (ch >= 'A' && ch <= 'Z') {
-                idx = ch - 'A';
-            }
-
             if (ch >= 'a' && ch <= 'z') {
-
-                if (largeAplha[idx] == 1) {
-                    smallAplha[idx] = -1;
+                smallAplha[ch - 'a'] = i;
+            } else {
+                if (largeAplha[ch - 'A'] == -1) {
+                    largeAplha[ch - 'A'] = i;
                 }
-
-                else {
-                    smallAplha[idx] = 1;
-                }
-
-            }
-
-            else {
-
-                largeAplha[idx] = 1;
-
             }
 
         }
 
-        int ans = 0;
-
+        int count = 0;
         for (int i = 0; i < 26; i++) {
-            if (smallAplha[i] == 1 && largeAplha[i] == 1) {
-                ans++;
+
+            if (smallAplha[i] != -1 && largeAplha[i] != -1 && smallAplha[i] < largeAplha[i]) {
+                count++;
             }
+
         }
 
-        return ans ; 
+        return count;
 
     }
-
 
 }
