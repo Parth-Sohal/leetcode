@@ -1,18 +1,17 @@
 class Solution {
     public int[] pivotArray(int[] nums, int pivot) {
 
-
-        // optimize yehi hua na ki use second array stor the result 
+        int n = nums.length ; 
 
         int leftI = 0 ;
-        int rightI = nums.length - 1 ;
+        int rightI = n - 1 ;
 
         int i = 0 ; 
-        int j = nums.length - 1; 
+        int j = n - 1; 
 
         int[] ans = new int[rightI+1];
 
-        while(i < nums.length && j >= 0 ){
+        while(i < n && j >= 0 ){
 
             if(nums[i] < pivot){
                 ans[leftI++] = nums[i];
