@@ -6,7 +6,7 @@ class Solution {
         int j = people.length - 1; 
         int count = 0 ; 
 
-        while(i < j){
+        while(i <= j){
 
             int sum = people[i] + people[j] ;
 
@@ -19,7 +19,6 @@ class Solution {
 
         }
 
-        if(i == j)count++;
 
         return count ; 
 
