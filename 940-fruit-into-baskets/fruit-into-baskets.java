@@ -8,7 +8,7 @@ class Solution {
 
             map.put(fruits[i], map.getOrDefault(fruits[i], 0) + 1);
 
-            while (map.size() > 2) {
+            if (map.size() > 2) {
                 int n = fruits[start];
 
                 map.put(n, map.get(n) - 1);
