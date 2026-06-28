@@ -11,19 +11,15 @@ class Solution {
         for(int i = 0 ; i < n ; i++){
 
             if(nums[i] == 0){
-
-                if(countZero >= 1){
-
-                    while(nums[start] != 0){
-                        start++ ;
-                    }
-                    start++ ;
-                }
-
                 countZero++ ;
             }
 
-            max = Math.max(max , i - start) ;
+            if(countZero > 1){
+                if(nums[start]== 0)countZero-- ;
+                start++;
+            }
+
+            if(countZero <= 1)max = Math.max(max , i - start) ;
         }
 
         return max ; 
