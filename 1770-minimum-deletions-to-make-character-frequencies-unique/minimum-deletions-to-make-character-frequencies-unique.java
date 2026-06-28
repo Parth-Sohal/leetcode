@@ -1,43 +1,35 @@
 class Solution {
     public int minDeletions(String s) {
-        int ans = 0;
+        
 
-        Integer[] countArr = new Integer[26];
-        Arrays.fill(countArr, 0);
+        int[] count = new int[26] ;
 
-        for (char ch : s.toCharArray()) {
-            countArr[ch - 'a']++;
+        for(char c : s.toCharArray()){
+            count[c - 'a']++ ;
         }
 
-        Arrays.sort(countArr , Collections.reverseOrder());
+        HashSet<Integer> set = new HashSet<>() ;
 
-        // System.out.println(Arrays.toString(countArr));
+        Arrays.sort(count) ;
+        int ans = 0 ; 
 
-        HashSet<Integer> set = new HashSet<>();
+        for(int i = count.length - 1 ; i >= 0 ; i--){
 
-        for (int i : countArr) {
+            int n = count[i] ;
 
-            if (i == 0)
-                break;
+            if( n == 0 )return ans ; 
 
-            if (set.contains(i)) {
-
-                int n = i;
-
-                while (n > 0 && set.contains(n)) {
-                    n = n - 1;
-                    ans++;
-                }
-
-                if (n != 0)
-                    set.add(n);
-
-            } else {
-                set.add(i);
+            while(set.contains(n) && n > 0){
+                n = n - 1  ;
+                ans++ ;
             }
 
+            if(n >= 1)set.add(n);
+
         }
 
+
         return ans ; 
+
     }
 }
