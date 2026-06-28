@@ -17,7 +17,6 @@ class Solution {
 
             int n = count[i] ;
 
-            if( n == 0 )return ans ; 
 
             while(set.contains(n) && n > 0){
                 n = n - 1  ;
