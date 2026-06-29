@@ -11,7 +11,7 @@ class Solution {
 
             map.put(n , map.getOrDefault(n,0) + 1);
 
-            while(map.size() > 2){
+            if(map.size() > 2){
 
                 int k = fruits[start] ;
 
