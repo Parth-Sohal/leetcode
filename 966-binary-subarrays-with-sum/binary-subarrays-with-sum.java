@@ -2,6 +2,8 @@ class Solution {
 
     public int helper(int[] nums, int goal) {
 
+        if(goal < 0)return 0 ; 
+
         int total = 0 ;
         int start = 0 ;
         int sum = 0 ;
