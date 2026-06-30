@@ -1,42 +1,39 @@
 class Solution {
 
     public int helper(int[] nums, int k) {
+        // at most k - at most k - 1 s
 
-        if (k == 0)
-            return 0;
+        if(k == 0)return 0 ; 
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int ans = 0 ;
+        int start = 0 ;
+        HashMap<Integer,Integer> map = new HashMap<>();
 
-        int total = 0;
-        int start = 0;
+        for(int i = 0 ; i < nums.length ; i++){
 
-        for (int i = 0; i < nums.length; i++) {
+            int n =  nums[i];
+            map.put(n,map.getOrDefault(n,0)+1);
 
-            int n = nums[i];
-
-            map.put(n, map.getOrDefault(n, 0) + 1);
-
-            while (map.size() > k) {
-
-                map.put(nums[start], map.get(nums[start]) - 1);
-
-                if (map.get(nums[start]) == 0) {
-                    map.remove(nums[start]);
+            while(map.size() > k){
+                int num = nums[start++];
+                map.put(num,map.getOrDefault(num,0)-1);
+                if(map.get(num) == 0){
+                    map.remove(num);
                 }
-
-                start++;
-
             }
 
-            total += (i - start + 1);
+            ans += (i - start + 1);
 
         }
+        
+        return ans;
 
-        return total ; 
 
     }
 
     public int subarraysWithKDistinct(int[] nums, int k) {
-        return helper(nums, k) - helper(nums, k - 1) ;
+        // at most k - at most k - 1 
+
+        return helper(nums,k) - helper(nums,k-1) ;
     }
 }
