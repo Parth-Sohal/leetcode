@@ -1,46 +1,61 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        int[] count1 = new int[26];
 
-        for (int i = 0; i < s1.length(); i++) {
-            count1[s1.charAt(i) - 'a']++;
+        int n = s1.length();
+        int m = s2.length();
+
+        if (n > m)
+            return false;
+
+        Map<Character, Integer> map1 = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            char c = s1.charAt(i);
+            map1.put(c, map1.getOrDefault(c, 0) + 1);
         }
-        int[] count2 = new int[26];
 
-        int start = -1;
-        int j = 0;
+        Map<Character, Integer> map2 = new HashMap<>();
 
-        while (j < s2.length()) {
+        for (int j = 0; j < m; j++) {
+            char c = s2.charAt(j);
 
-            System.out.println(start + " " + j);
-            char ch = s2.charAt(j);
+            if (map1.containsKey(c)) {
+                map2.put(c, map2.getOrDefault(c, 0) + 1);
+            }
 
-            if (count1[ch - 'a'] == 0) {
-                start = -1;
-                Arrays.fill(count2,0);
-            } else {
+            if (j >= n ) {
 
-                if (start == -1) {
-                    start = j;
-                }
+                char ch = s2.charAt(j - n);
 
-                count2[ch - 'a']++;
+                if (map2.containsKey(ch)) {
+                    map2.put(ch, map2.get(ch) - 1);
 
-                while (count2[ch - 'a'] > count1[ch - 'a']) {
-                    count2[s2.charAt(start) - 'a']--;
-                    start++;
+                    if (map2.get(ch) == 0) {
+                        map2.remove(ch);
+                    }
                 }
 
             }
 
-            if (start != -1 && j - start + 1 == s1.length() && Arrays.equals(count1, count2)) {
-                return true;
-            }
+            if (j >= n-1 && map1.size() == map2.size()) {
+                boolean flag = true;
 
-            j++;
+                for (Character key : map1.keySet()) {
+                    if (!map1.get(key).equals(map2.getOrDefault(key, 0))) {
+                        flag = false;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    return true;
+                }
+
+            }
 
         }
 
-        return false;
+        return false ; 
+
     }
 }
