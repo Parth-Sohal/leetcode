@@ -15,23 +15,25 @@
  */
 class Solution {
 
-    public static int countGoodNodes(TreeNode root , int max){
-        
-        if(root == null){
+    public int  goodNode(TreeNode root, int max) {
+
+        if (root == null) {
             return 0;
         }
-        
-        
-        if(root.val >= max){
-            return 1 +  countGoodNodes(root.left,Math.max(max,root.val)) + countGoodNodes(root.right,Math.max(max,root.val));
+
+        int count = 0 ; 
+        if (root.val >= max) {
+            count++;
+            max = root.val;
         }
-        
-        return countGoodNodes(root.left , max) + countGoodNodes(root.right,max);
-        
+
+        return goodNode(root.left, max) + goodNode(root.right, max) + count ;
 
     }
 
     public int goodNodes(TreeNode root) {
-        return countGoodNodes(root, Integer.MIN_VALUE); 
+
+        return goodNode( root , Integer.MIN_VALUE ) ;
+
     }
 }
