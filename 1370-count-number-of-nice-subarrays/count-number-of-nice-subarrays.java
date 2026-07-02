@@ -1,33 +1,32 @@
 class Solution {
 
-    public static int atMostk(int[] arr, int k) {
 
-        int oddCount = 0;
-        int start = 0;
-        int total = 0;
+    public static int helper(int[] nums  , int k){
 
-        for (int i = 0; i < arr.length; i++) {
+        int ans = 0 ; 
+        int oddCount = 0 , start = 0 ;
 
-            if (arr[i] % 2 != 0) {
-                oddCount++;
-            }
+        for(int i =0 ; i < nums.length ; i++){
 
-            while (oddCount > k) {
-                if (arr[start] % 2 != 0) {
-                    oddCount--;
-                }
+            if(nums[i]%2 != 0)oddCount++ ;
+
+            while(oddCount > k){
+                if(nums[start] % 2 != 0)oddCount--;
                 start++;
             }
 
-            total += (i - start + 1);
+            ans += (i - start + 1);
 
         }
 
-        return total;
+        return ans ; 
+
+
 
     }
 
+
     public int numberOfSubarrays(int[] nums, int k) {
-        return atMostk(nums , k) - atMostk(nums,k-1) ;
+        return helper(nums,k) - helper(nums,k-1);
     }
 }
