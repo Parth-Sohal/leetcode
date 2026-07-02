@@ -14,25 +14,13 @@ class Solution {
 
             maxFreq = Math.max(maxFreq, count[c - 'A']);
 
-            int l = i - start + 1;
-
-            while (l - maxFreq > k) {
-
-                int ch = s.charAt(start);
-
-                count[ch - 'A']--;
-
-                maxFreq = 0;
-                for (int n : count) {
-                    maxFreq = Math.max(maxFreq, n);
-                }
-
-                start++;
-                l = i - start + 1;
-
+            if ((i - start + 1) - maxFreq > k) {
+                count[s.charAt(start) - 'A']--;
+                start++; 
             }
 
-            max = Math.max(l, max);
+        
+            max = Math.max(max, i - start + 1);
 
         }
 
