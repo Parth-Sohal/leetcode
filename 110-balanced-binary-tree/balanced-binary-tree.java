@@ -15,25 +15,25 @@
  */
 class Solution {
 
-    public static int balanced(TreeNode root ){
+    public int isBalanced1(TreeNode root) {
 
-        if(root == null){
-            return 0 ;
+        if (root == null) {
+            return 0;
         }
 
-        int left = balanced(root.left);
+        int left = isBalanced1(root.left);
 
-        if(left == -1){
+        if (left == -1) {
             return -1;
         }
 
-        int right = balanced(root.right);
+        int right = isBalanced1(root.right);
 
-        if(right == -1){
-            return -1;
-        }
+        if(right == -1)return -1 ; 
 
-        if(Math.abs(left-right) > 1){
+
+        if (Math.abs(right - left) > 1) {
+            
             return -1;
         }
 
@@ -42,8 +42,12 @@ class Solution {
     }
 
     public boolean isBalanced(TreeNode root) {
+         
+         int ans = isBalanced1(root);
+        
+        // Since any imbalance bubbles up as -1, 
+        // if ans is NOT -1, the tree is perfectly balanced!
+        return ans != -1;
 
-        return balanced(root) != -1 ; 
-    
     }
 }
