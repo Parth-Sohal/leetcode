@@ -15,27 +15,27 @@
  */
 class Solution {
 
-    public static int diameter(TreeNode root , int[] max){
-
-        if(root == null){
-            return 0 ;
-        }
-
-        int left = diameter(root.left, max);
-        int right = diameter(root.right, max);
-
-        max[0] = Math.max(max[0], left + right);
+    static int max = 0 ;
 
 
-        return Math.max(left, right) + 1;
+    public static int diameter(TreeNode root){
+        if(root == null)return 0 ;
+
+        int left = diameter(root.left) ;
+        int right = diameter(root.right) ;
+
+        max = Math.max(max , left + right) ;
+        return Math.max(left,right)+1;
 
     }
 
     public int diameterOfBinaryTree(TreeNode root) {
-
-        int[] arr = new int[1];
-        diameter(root, arr);
-        return arr[0];
         
+        max = 0 ; 
+
+        diameter(root);
+
+        return max ; 
+
     }
 }
