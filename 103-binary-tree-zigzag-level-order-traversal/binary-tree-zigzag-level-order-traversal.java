@@ -15,55 +15,38 @@
  */
 class Solution {
 
-    public static List<List<Integer>> zigzag(TreeNode root){
+    public static void zizzag(TreeNode root , List<List<Integer>> list , int level){
 
+        if(root == null){
+            return ;
+        }
+
+        if(level == list.size()){
+            list.add(new ArrayList<>());
+        }
+
+        if (level % 2 == 0) {
+            list.get(level).add(root.val); // Add to the end
+        } else {
+            list.get(level).add(0, root.val); // Add to the front
+        }
+
+        zizzag(root.left, list, level+1);
+        zizzag(root.right, list, level+1);
+
+    }
+
+   
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+         List<List<Integer>> list =  new ArrayList<>() ; 
 
         if(root == null){
             return new ArrayList<>() ;
         }
 
-        Queue<TreeNode> q = new LinkedList<TreeNode>();
-        q.add(root);
+        zizzag(root, list , 0);
 
-        List<List<Integer>> list = new ArrayList<>();
-        int level = 0 ;
-
-        while(!q.isEmpty()){
-
-            int size = q.size();
-
-
-            List<Integer> temp1 = new ArrayList<>();
-            for(int i = 0; i < size; i++){
-                TreeNode temp = q.poll() ;
-                temp1.add(temp.val);
-                if(temp.left != null){
-                    q.add(temp.left);
-                }
-                if(temp.right != null){
-                    q.add(temp.right);
-                }
-            }
-
-
-
-            if (level % 2 != 0){
-                Collections.reverse(temp1);
-            }
-
-            list.add(temp1);
-
-
-            level++;
-
-
-        }
-
-        return list ;
-
-    }
-
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        return zigzag(root); 
+        return list ; 
     }
 }
