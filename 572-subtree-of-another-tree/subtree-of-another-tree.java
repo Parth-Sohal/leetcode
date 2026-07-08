@@ -15,41 +15,33 @@
  */
 class Solution {
 
-    public static boolean same(TreeNode a , TreeNode b){
+    public boolean isSys(TreeNode p , TreeNode q){
 
-
-        if(a == null || b == null){
-            return a == b ;
-        }
-
-        if(a.val != b.val){
-            return false ; 
+        if(p == null || q == null){
+            return p == q;
         }
 
 
-        return same(a.left , b.left ) && same(a.right , b.right);
-
-    }
-
-
-    public boolean isSub(TreeNode p , TreeNode q){
-
-        if(p == null){
-            return false ; 
+        if(p.val != q.val){
+            return false; 
         }
 
+        return isSys(p.right , q.right) && isSys(p.left , q.left);
 
-        if(same(p,q)){
-            return true;
-        }
-
-        
-            return isSub(p.left , q) || isSub(p.right , q); 
-        
 
     }
 
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        return isSub(root,subRoot) ;
+
+        if(root == null || subRoot == null)return root == subRoot ;
+
+        
+        if(isSys(root, subRoot)){
+            return true ; 
+        }        
+
+        return isSubtree(root.left,subRoot) || isSubtree(root.right,subRoot) ; 
+
+
     }
 }
