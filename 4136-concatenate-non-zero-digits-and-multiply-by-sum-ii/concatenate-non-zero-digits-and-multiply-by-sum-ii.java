@@ -2,7 +2,7 @@ class Solution {
     public int[] sumAndMultiply(String s, int[][] queries) {
         int MOD = 1000000007;
         //        int mod = 1000000007;
-        System.out.println(MOD);
+        // System.out.println(MOD);
 
         long[] runSum = new long[s.length() + 1];
         long[] digits = new long[s.length() + 1];
