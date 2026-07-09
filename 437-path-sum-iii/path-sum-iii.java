@@ -15,36 +15,36 @@
  */
 class Solution {
 
-    public  long sumIII(TreeNode root , long currSum , long target){
-
-
-        if(root == null){
-            return 0;
-        }
-
-        long ans = 0 ;
-        if(currSum + root.val == target){
-            ans += 1 ;
-        }
-
-        return ans + sumIII(root.left , currSum + root.val ,  target) + sumIII(root.right, currSum + root.val, target);
-
-    }
-
-
-    public  long pathSumIII(TreeNode root , long target){
+    public  int sumIII(TreeNode root , long currSum , long target , HashMap<Long, Integer> map){
 
         if(root == null){
-            return 0 ;
+            return 0 ; 
         }
+        
+        long val = currSum + root.val  ;
 
-        long ans = sumIII(root , 0 , target);
+        int count = map.getOrDefault(val - target , 0);
 
-        return pathSumIII(root.left , target) + pathSumIII(root.right , target) + ans ;
+        map.put(val  , map.getOrDefault(val , 0) + 1);
 
+        count += sumIII(root.left , currSum+root.val , target , map);
+        count += sumIII(root.right , currSum+root.val , target , map);
+
+
+        map.put(val  , map.get(val) - 1);
+
+        return count ; 
+        
+
+
+
+        
     }
 
     public int pathSum(TreeNode root, int targetSum) {
-        return (int)pathSumIII(root, (long)targetSum) ; 
+        HashMap<Long, Integer> map = new HashMap<>();
+    
+        map.put(0L, 1);
+        return sumIII(root, 0L , targetSum , map)  ;
     }
 }
