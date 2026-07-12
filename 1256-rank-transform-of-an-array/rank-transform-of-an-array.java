@@ -1,37 +1,37 @@
 class Solution {
     public int[] arrayRankTransform(int[] arr) {
 
-        if(arr.length == 0 || arr == null) return arr ; 
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
+        // variables 
+        if(arr == null || arr.length == 0) return arr ;  // edge 
 
-        for (int i : arr) {
-            pq.add(i);
-        }
+        int[] ans = arr.clone() ; // shalow copy 
+        Arrays.sort(ans);
+        HashMap<Integer, Integer> map = new HashMap<>() ;  // map rank each element 
+        int rank = 0 ;  // it 
+        int prev = Integer.MIN_VALUE ;  //.. just t  track 
 
 
-        int rank = 1;
-        int last = pq.peek();
+        for(int i = 0 ; i < ans.length ; i++){ // n element 
 
-        int k = 0;
-
-        while (!pq.isEmpty()) {
-            int ele = pq.poll();
-
-            if (ele != last) {
+            if(ans[i] != prev){
                 rank++;
+                prev = ans[i]; 
             }
 
-            map.put(ele, rank);
-            last = ele;
+            map.put(ans[i] , rank) ;
+
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = map.get(arr[i]);
+        for(int i = 0 ; i < arr.length ; i++){ // n element 
+            ans[i] = map.get(arr[i]) ;
         }
 
-        return arr ; 
+
+        return ans ; 
 
     }
+
+    // tc O(nlong)  + o(2n)
+    // o(n) + o(n) 
 }
