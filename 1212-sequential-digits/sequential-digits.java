@@ -1,35 +1,32 @@
 class Solution {
 
-    public static void printSequence(int idx, int ans, int start, int end, List<Integer> list) {
+    public static void printSequence(int start, int end, List<Integer> arr) {
 
-        if (ans > end) {
-            return;
-        }
+        for (int i = 1; i < 9; i++) {
 
-        if (ans >= start) {
-            // System.out.println(ans);
-            list.add(ans);
-            //            return;
-        }
+            int ans = i;
 
-        if (idx == 10) {
-            return;
-        }
+            for (int j = i + 1; j <= 9; j++) {
 
-        if (idx == 1) {
-            for (int i = 1; i <= 9; i++) {
-                printSequence(i + 1, i, start, end, list);
+                ans = (ans * 10) + j;
+
+                if (ans >= start && ans <= end) {
+                    arr.add(ans);
+                }
+
             }
-        } else {
-            printSequence(idx + 1, (ans * 10 + idx), start, end, list);
+
         }
 
     }
 
     public List<Integer> sequentialDigits(int low, int high) {
-        List<Integer> list = new ArrayList<>();
-        printSequence(1, 0, low, high , list);
-        Collections.sort(list);
-        return list ; 
+        List<Integer> arr = new ArrayList<>();
+
+        printSequence(low, high, arr);
+
+        Collections.sort(arr);
+
+        return arr  ; 
     }
 }
