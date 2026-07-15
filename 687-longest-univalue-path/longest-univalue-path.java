@@ -15,48 +15,39 @@
  */
 class Solution {
 
-    public static int longestUniValue(TreeNode root , int[] max){
+    private int max = 0 ; 
 
-        if(root == null){ // null 
-            return 0 ;
-        }
-        
+    public int longValue(TreeNode root) {
 
-        int left = longestUniValue(root.left,max);
-        int right = longestUniValue(root.right,max);
-
-        int leftPath = 0 ;
-        int rightPath = 0 ; 
-        
-        int val = root.val;
-        
-       
-        if(root.left != null && root.left.val == val){
-            leftPath =  left + 1;
+        if(root == null){
+            return 0 ; 
         }
 
-        
-        if(root.right != null && root.right.val == val){
-            rightPath = right + 1;
+        int left = longValue(root.left) ;
+        int right = longValue(root.right) ; 
+
+        if(root.left == null || root.left.val != root.val){
+            left = 0 ;
+        } 
+        else{
+            left = left + 1; 
         }
 
-        max[0] = Math.max(max[0] , leftPath + rightPath) ;
-        
-        return Math.max(leftPath , rightPath) ;
-        
-    }
+        if(root.right == null || root.right.val != root.val){
+            right = 0 ;
+        } 
+        else{
+            right = right + 1 ;
+        }
+
+        max = Math.max(max , left + right) ;
+        return Math.max(left , right)  ;
+
+    } 
+
 
     public int longestUnivaluePath(TreeNode root) {
-
-
-        int[] max = new int[1];
-        // max[0] = INTEGER.MIN_VALUE ; 
-
-        longestUniValue(root , max) ;
-
-        return max[0] ; 
-
-    
-        
+        longValue(root) ;
+        return max ;
     }
 }
