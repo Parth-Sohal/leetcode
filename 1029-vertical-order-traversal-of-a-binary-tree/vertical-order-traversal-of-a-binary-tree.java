@@ -15,41 +15,36 @@
  */
 class Solution {
 
-    public static void dfs(
-            TreeNode root,
-            int row,
-            int col,
-            TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map) {
+    public void verticalOrder(
+        TreeNode root , 
+        TreeMap< Integer , TreeMap<Integer , PriorityQueue<Integer>>> map ,
+         int row , int col 
+         ){
 
-        if (root == null) {
-            return;
-        }
+            if(root == null){
+                return ;
+            }
 
-        if (!map.containsKey(col)) {
-            map.put(col, new TreeMap<>());
-        }
+            if(!map.containsKey(col)){
+                map.put(col , new TreeMap<>() ) ;
+            }
 
-        if (!map.get(col).containsKey(row)) {
-            map.get(col).put(row, new PriorityQueue<>());
-        }
+            if(!map.get(col).containsKey(row)){
+                map.get(col).put(row , new PriorityQueue<>() ) ;
+            }
 
-        map.get(col).get(row).offer(root.val);
+            map.get(col).get(row).add(root.val);
 
-        dfs(root.left, row + 1, col - 1, map);
-        dfs(root.right, row + 1, col + 1, map);
+            verticalOrder(root.left, map , row + 1 , col - 1 ) ;
+            verticalOrder(root.right, map , row + 1 , col + 1 ) ;
 
-    }
+         }
 
     public List<List<Integer>> verticalTraversal(TreeNode root) {
+        TreeMap<Integer , TreeMap<Integer , PriorityQueue<Integer>>> map = new TreeMap<>() ;
+        verticalOrder(root, map , 0 , 0);
 
-        if (root == null) {
-            return new ArrayList<>();
-        }
-
-        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
-        List<List<Integer>> list = new ArrayList<>();
-
-        dfs(root, 0, 0, map);
+        List<List<Integer>> list = new ArrayList<>() ;
 
         for (Integer Col : map.keySet()) {
             List<Integer> temp = new ArrayList<>();
@@ -64,5 +59,6 @@ class Solution {
         }
 
         return list;
+
     }
 }
