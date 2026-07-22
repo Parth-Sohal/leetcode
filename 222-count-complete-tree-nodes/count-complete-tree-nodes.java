@@ -15,14 +15,50 @@
  */
 class Solution {
 
-    public static int count(TreeNode root){
+    int heightLeft(TreeNode root){
+
+
+        int h = 0 ;
+
+        while(root != null){
+            h++;
+            root = root.left ;
+        }
+
+        return h ; 
+
+    }
+
+
+    int heightRight(TreeNode root){
+
+
+        int h = 0 ;
+
+        while(root != null){
+            h++;
+            root = root.right ;
+        }
+
+        return h ; 
+
+    }
+
+    public  int count(TreeNode root){
 
         if(root == null){
             return 0 ; 
         }
 
+        int left = heightLeft(root);
+       int right =  heightRight(root) ;
 
-       return  1 + count(root.left) +  count(root.right);
+       if(left == right){
+            return  (1 << left) - 1 ; 
+       }
+
+
+        return 1 + count(root.left) + count(root.right);
 
        
 
