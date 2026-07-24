@@ -15,27 +15,27 @@
  */
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
-
-        if(root == null)return true ;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-
+        
+        Queue<TreeNode> q = new LinkedList<>() ;
+        q.add(root) ;
+  
         while(q.peek() != null){
 
-            TreeNode temp = q.poll();
-            
-            q.add(temp.left);
+            TreeNode temp = q.poll() ;
+
+            q.add(temp.left) ;
             q.add(temp.right);
 
         }
 
-        while(!q.isEmpty() && q.peek() == null){
-            q.poll();
+        while(!q.isEmpty() ){
+            TreeNode t = q.poll() ;
+            if(t != null){
+                return false;
+            }
         }
 
-        return q.isEmpty(); 
-
-
-
+        return true ; 
+        
     }
 }
