@@ -15,9 +15,9 @@
  */
 class Solution {
 
-    static TreeNode prev = null;
+    TreeNode prev = null;
 
-    public static void flattenTree(TreeNode root) {
+    public void flattenTree(TreeNode root) {
 
         if (root == null) {
             return;
@@ -41,11 +41,6 @@ class Solution {
 
     public void flatten(TreeNode root) {
 
-        TreeNode temp =  root ; 
-
         flattenTree(root) ;
-
-        // return root ; 
-
     }
 }   
