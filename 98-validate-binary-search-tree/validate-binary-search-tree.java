@@ -14,35 +14,17 @@
  * }
  */
 class Solution {
-
-
-    public static boolean validate(TreeNode root , Long[] prev){
-        if(root==null){
+    private boolean validate(TreeNode root, long min, long max) {
+        if (root == null) {
             return true;
         }
-
-        boolean ans = validate(root.left,prev);
-
-        if((long)root.val <= prev[0]){
+        if (root.val <= min || root.val >= max) {
             return false;
         }
-
-        if(ans){
-            prev[0]=(long)root.val;
-            ans = validate(root.right,prev);
-        }
-
-        return ans;
-
+        return validate(root.left, min, root.val) && validate(root.right, root.val, max);
     }
 
     public boolean isValidBST(TreeNode root) {
-       
-        Long[] prev = new Long[1] ;
-        prev[0] = Long.MIN_VALUE;
-
-        return validate(root,prev) ;
-
-
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 }
