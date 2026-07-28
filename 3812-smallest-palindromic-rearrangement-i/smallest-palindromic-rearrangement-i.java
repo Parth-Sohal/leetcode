@@ -9,39 +9,23 @@ class Solution {
 
         int start = 0;
         int end = s.length() - 1;
-        //        char mid = 'a';
         StringBuilder sb = new StringBuilder(s);
-
-        System.out.println(sb.length());
 
         for (int i = 0; i < charArr.length && start < end; i++) {
 
             char ch = (char) (i + 'a');
 
-            while (charArr[i] > 0 && start < end &&
-                    charArr[i] != 1) {
+            while (charArr[i] > 1 && start < end) {
 
-                sb.setCharAt(start, ch);
-                sb.setCharAt(end, ch);
-
-                start++;
-                end--;
+                sb.setCharAt(start++, ch);
+                sb.setCharAt(end--, ch);
                 charArr[i] -= 2;
 
             }
 
         }
 
-        if (start == end) {
-
-            for (int i = 0; i < charArr.length; i++) {
-                if (charArr[i] == 1) {
-                    sb.setCharAt(start, (char) (i + 'a'));
-                    break;
-                }
-            }
-
-        }
+      
 
         return sb.toString();
     }
