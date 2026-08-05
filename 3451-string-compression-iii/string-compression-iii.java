@@ -1,39 +1,22 @@
 class Solution {
     public String compressedString(String word) {
-
-        int count = 0;
-        char ch = word.charAt(0);
-        int i = 0;
         StringBuilder ans = new StringBuilder();
-        while (i < word.length()) {
+        int i = 0;
+        int n = word.length();
 
-            if (word.charAt(i) == ch) {
+        while (i < n) {
+            char ch = word.charAt(i);
+            int count = 0;
+
+            // Count up to 9 consecutive identical characters
+            while (i < n && word.charAt(i) == ch && count < 9) {
                 count++;
-            } else {
-                while (count > 9) {
-                    ans.append((char) (9 + '0'));
-                    ans.append(ch);
-                    count -= 9;
-                }
-                ans.append((char) (count + '0'));
-                ans.append(ch);
-
-                count = 1;
-                ch = word.charAt(i);
-
+                i++;
             }
-            i++;
+
+            ans.append(count).append(ch);
         }
 
-        while (count > 9) {
-            ans.append((char) (9 + '0'));
-            ans.append(ch);
-            count -= 9;
-        }
-        ans.append((char) (count + '0'));
-        ans.append(ch);
-
-        return ans.toString() ;
-
+        return ans.toString();
     }
 }
