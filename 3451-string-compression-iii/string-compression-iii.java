@@ -1,44 +1,39 @@
 class Solution {
     public String compressedString(String word) {
-        
-        StringBuilder sb = new StringBuilder(word.length());
 
-        int count = 1;
+        int count = 0;
         char ch = word.charAt(0);
-        int i = 1;
-
+        int i = 0;
+        StringBuilder ans = new StringBuilder();
         while (i < word.length()) {
 
             if (word.charAt(i) == ch) {
                 count++;
-                if (count == 9) {
-                    sb.append(count);
-                    sb.append(ch);
-                    i++;
-                    if (i < word.length()) {
-                        ch = word.charAt(i);
-                        count = 1;
-                    }
-                    //                    continue;
+            } else {
+                while (count > 9) {
+                    ans.append((char) (9 + '0'));
+                    ans.append(ch);
+                    count -= 9;
                 }
-            }
+                ans.append((char) (count + '0'));
+                ans.append(ch);
 
-            else {
-                sb.append(count);
-                sb.append(ch);
                 count = 1;
                 ch = word.charAt(i);
-            }
 
+            }
             i++;
         }
 
-        if(count!=9){
-            sb.append(count);
-            sb.append(ch);
+        while (count > 9) {
+            ans.append((char) (9 + '0'));
+            ans.append(ch);
+            count -= 9;
         }
+        ans.append((char) (count + '0'));
+        ans.append(ch);
 
-        return sb.toString();
-        
+        return ans.toString() ;
+
     }
 }
