@@ -1,74 +1,89 @@
 class Solution {
-    private int greater(char[] str, int count, int idx) {
-        int digits = 0;
-        int num2 = count;
-
-        while (num2 != 0) {
-            digits++;
-            num2 = num2 / 10;
-        }
-
-        idx += digits;
-        num2 = count;
-
-        while (num2 != 0) {
-            str[idx] = (char) (num2 % 10 + '0');
-            num2 = num2 / 10;
-            idx--;
-        }
-
-        return digits;
-
-    }
-
     public int compress(char[] chars) {
-
-        if (chars.length == 1) {
-            return 1;
-        }
-
         int i = 0;
-        int j = 1;
-        int put = 0;
-        int count = 1;
+        char currChar = chars[0];
+        int updateIdx = 0;
+        int count = 0;
 
-        while (j < chars.length) {
+        while (i < chars.length) {
 
-            if (chars[i] == chars[j]) {
+            if (currChar == chars[i]) {
                 count++;
             }
 
             else {
-                i = j;
-                if (count == 1) {
-                    chars[++put] = chars[i];
-                } else if (count > 9) {
-                    // System.out.println(count);
-                    int plus = greater(chars, count, put);
-                    put += plus;
-                    chars[++put] = chars[i];
-                } else {
-                    chars[++put] = (char) (count + '0');
-                    chars[++put] = chars[i];
+
+                chars[updateIdx++] = currChar;
+
+                if (count < 10) {
+                    if (count != 1) {
+                        chars[updateIdx++] = (char) (count + '0');
+                    }
                 }
+
+                else {
+
+                    int start = updateIdx;
+
+                    while (count > 0) {
+                        int mod = count % 10;
+                        chars[updateIdx++] = (char) (mod + '0');
+                        count /= 10;
+                    }
+
+                    int end = updateIdx - 1;
+
+                    while (start < end) {
+                        char temp = chars[start];
+                        chars[start] = chars[end];
+                        chars[end] = temp;
+                        start++;
+                        end--;
+                    }
+
+                }
+
+                currChar = chars[i];
                 count = 1;
+
             }
 
-            j++;
+            // System.out.println(Arrays.toString(chars));
+
+            i++;
 
         }
 
-        if (count > 9) {
-            int val = greater(chars, count, put);
-            put += val;
-        }  else if (count > 1) {
-            chars[++put] = (char) (count + '0');
+        chars[updateIdx++] = currChar;
+
+        if (count < 10) {
+            if (count != 1) {
+                chars[updateIdx++] = (char) (count + '0');
+            }
         }
 
-        return put+1;
+        else {
 
-        
+            int start = updateIdx;
 
+            while (count > 0) {
+                int mod = count % 10;
+                chars[updateIdx++] = (char) (mod + '0');
+                count /= 10;
+            }
+
+            int end = updateIdx - 1;
+
+            while (start < end) {
+                char temp = chars[start];
+                chars[start] = chars[end];
+                chars[end] = temp;
+                start++;
+                end--;
+            }
+
+        }
+
+        return updateIdx ; 
     }
-
 }
