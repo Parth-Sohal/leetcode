@@ -24,7 +24,7 @@ class Solution {
         return updateIdx;
     }
 
-    // Extracted helper method to handle count writing and digit reversing
+    
     private int appendCount(char[] chars, int updateIdx, int count) {
         if (count == 1) {
             return updateIdx;
@@ -39,7 +39,6 @@ class Solution {
                 count /= 10;
             }
 
-            // Reverse the inserted digits
             int end = updateIdx - 1;
             while (start < end) {
                 char temp = chars[start];
