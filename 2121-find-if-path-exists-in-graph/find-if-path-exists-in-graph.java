@@ -14,7 +14,6 @@ class Solution {
             graph.get(b).add(a);
         }
 
-        System.out.println(graph);
 
         HashSet<Integer> visited = new HashSet<>();
         visited.add(source);
