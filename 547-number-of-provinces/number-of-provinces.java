@@ -27,21 +27,12 @@ class Solution {
 
         for (int row = 0; row < mat.length; row++) {
 
-            if (visited[row]) {
-                continue;
+            if (!visited[row]) {
+                visited[row] = true ; 
+                garphConnectedComponents(mat, visited, row);
+                count++;
             }
-            visited[row] = true;
-
-            for (int col = 0; col < mat[row].length; col++) {
-
-                if (mat[row][col] == 1 && !visited[col]) {
-                    garphConnectedComponents(mat, visited, col);
-                }
-
-            }
-
-            count++;
-
+        
         }
 
        return count ;
