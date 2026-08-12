@@ -5,19 +5,12 @@ class Solution {
 
         int count = 0 , i = capacity.length - 1 ; 
 
-        while( i >= 0 ){
-
-            if(sum <= capacity[i]){
-                return count +1 ;
-            }
-
-            sum -= capacity[i];
+        while(sum > 0){
+            sum -= capacity[i] ;
             i--;
             count++;
-
         }
 
         return count ; 
-
     }
 }
