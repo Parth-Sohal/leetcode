@@ -1,3 +1,4 @@
+
 class Solution {
     static class Pair {
         int xIdx;
@@ -28,40 +29,42 @@ class Solution {
             }
         }
 
-        int count = 0;
+        int time = 0 ;
 
-        while (!q.isEmpty() && freshCount > 0) {
+        while(!q.isEmpty() && freshCount > 0){
 
-            int size = q.size();
+            int size = q.size() ;
 
-            for (int j = 0; j < size; j++) {
+            for(int i = 0 ; i < size ; i++){
+
                 Pair temp = q.poll();
 
                 int xIdx = temp.xIdx;
-                int yIdx = temp.yIdx;
+                int yIdx = temp.yIdx ;
+                
+                // grid[xIdx][yIdx] = 2;
 
-                for (int i = 0; i < directions.length; i++) {
 
-                    int newXIdx = xIdx + directions[i][0];
-                    int newYIdx = yIdx + directions[i][1];
+                for(int j = 0 ; j < directions.length; j++){
+                    int nx =  temp.xIdx + directions[j][0];
+                    int ny =  temp.yIdx + directions[j][1];
 
-                    if ((newXIdx >= 0 && newXIdx < row && newYIdx >= 0 && newYIdx < col)
-                            && grid[newXIdx][newYIdx] == 1) {
+                    if ((nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length) && grid[nx][ny] == 1) {
+                        grid[nx][ny] = 2 ; 
+                        q.offer(new Pair(nx, ny));
                         freshCount--;
-                        grid[newXIdx][newYIdx] = 2;
-                        q.add(new Pair(newXIdx, newYIdx));
                     }
-
+                    
+                    
                 }
+
             }
 
-            count++;
+            time++;
 
         }
 
-        if (freshCount == 0)
-            return count;
-        return -1;
+        return  freshCount == 0 ? time : -1; 
 
     }
 }
