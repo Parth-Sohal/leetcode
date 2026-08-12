@@ -1,73 +1,54 @@
 class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;
 
-     class Pair {
-        int xIdx;
-        int yIdx;
-        int distance;
-
-        public Pair(int xIdx, int yIdx, int distance) {
-            this.xIdx = xIdx;
-            this.yIdx = yIdx;
-            this.distance = distance;
-        }
-    }
-
-    public int shortestPath(int[][] grid) {
-
-        int row = grid.length;
-        int col = grid[0].length;
-
-        if (grid[0][0] != 0 || grid[row - 1][col - 1] != 0) {
+        // Check if start or end cell is blocked
+        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) {
             return -1;
         }
 
-        int[][] directions = {
-                { 0, -1 }, // left
-                { 0, 1 }, // right
-                { -1, 0 }, // up
-                { 1, 0 }, // down
+        // Base case for 1x1 matrix
+        if (n == 1) {
+            return 1;
+        }
 
-                { -1, -1 }, // \
-                { -1, 1 }, // />
-                { 1, -1 }, // </
-                { 1, 1 }, // \
+        int[][] directions = {
+            {-1, -1}, {-1, 0}, {-1, 1},
+            { 0, -1},          { 0, 1},
+            { 1, -1}, { 1, 0}, { 1, 1}
         };
 
-        Pair p = new Pair(0, 0, 0);
-        Queue<Pair> q = new LinkedList<>();
-        q.add(p);
-        boolean[][] visited = new boolean[row][col];
-        visited[0][0] = true;
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.add(new int[]{0, 0});
+        grid[0][0] = 1; // Mark start as visited
 
-        while (!q.isEmpty()) {
+        int pathLength = 1;
 
-            Pair temp = q.poll();
+        while (!queue.isEmpty()) {
+            int size = queue.size();
 
-            if (temp.xIdx == row - 1 && temp.yIdx == col - 1) {
-                return temp.distance + 1;
-            }
+            for (int i = 0; i < size; i++) {
+                int[] curr = queue.poll();
+                int r = curr[0];
+                int c = curr[1];
 
-            int dist = temp.distance;
-
-            for (int[] dir : directions) {
-
-                int nx = temp.xIdx + dir[0];
-                int ny = temp.yIdx + dir[1];
-
-                if ((nx >= 0 && nx < row && ny >= 0 && ny < col && !visited[nx][ny]) && (grid[nx][ny] == 0)) {
-                    visited[nx][ny] = true;
-                    q.add(new Pair(nx, ny, dist + 1));
+                if (r == n - 1 && c == n - 1) {
+                    return pathLength;
                 }
 
-            }
+                for (int[] dir : directions) {
+                    int nr = r + dir[0];
+                    int nc = c + dir[1];
 
+                    if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 0) {
+                        grid[nr][nc] = 1; // Mark as visited immediately
+                        queue.add(new int[]{nr, nc});
+                    }
+                }
+            }
+            pathLength++;
         }
 
         return -1;
-
-    }
-
-    public int shortestPathBinaryMatrix(int[][] grid) {
-        return shortestPath(grid)  ;
     }
 }
