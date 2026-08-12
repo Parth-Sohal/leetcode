@@ -1,11 +1,25 @@
 class Solution {
-    public int shortestPathBinaryMatrix(int[][] grid) {
+
+     class Pair {
+        int xIdx;
+        int yIdx;
+        int distance;
+
+        public Pair(int xIdx, int yIdx, int distance) {
+            this.xIdx = xIdx;
+            this.yIdx = yIdx;
+            this.distance = distance;
+        }
+    }
+
+    public int shortestPath(int[][] grid) {
 
         int row = grid.length;
         int col = grid[0].length;
 
-        if (grid[0][0] != 0 || grid[row - 1][col - 1] != 0)
+        if (grid[0][0] != 0 || grid[row - 1][col - 1] != 0) {
             return -1;
+        }
 
         int[][] directions = {
                 { 0, -1 }, // left
@@ -19,61 +33,41 @@ class Solution {
                 { 1, 1 }, // \
         };
 
-        int[] start = { 0, 0 };
-        int[] end = { row - 1, col - 1 };
-
-        Map<String, String> parent = new HashMap<>();
-
-        Queue<int[]> q = new LinkedList<>();
-        q.add(start);
-        grid[start[0]][start[1]] = 1;
+        Pair p = new Pair(0, 0, 0);
+        Queue<Pair> q = new LinkedList<>();
+        q.add(p);
+        boolean[][] visited = new boolean[row][col];
+        visited[0][0] = true;
 
         while (!q.isEmpty()) {
 
-            int[] idx = q.poll();
+            Pair temp = q.poll();
 
-            int xIDx = idx[0];
-            int yIDx = idx[1];
-
-            //            System.out.print( xIDx + "," + yIDx + " - >");
-
-            if (xIDx == end[0] && yIDx == end[1]) {
-                // 
-                break;
+            if (temp.xIdx == row - 1 && temp.yIdx == col - 1) {
+                return temp.distance + 1;
             }
+
+            int dist = temp.distance;
 
             for (int[] dir : directions) {
 
-                int newX = idx[0] + dir[0];
-                int newY = idx[1] + dir[1];
+                int nx = temp.xIdx + dir[0];
+                int ny = temp.yIdx + dir[1];
 
-                if ((newX >= 0 && newX < row) && (newY >= 0 && newY < col) && (grid[newX][newY] == 0)) {
-
-                    String child = newX + "," + newY;
-                    String parentKey = xIDx + "," + yIDx;
-
-                    parent.put(child, parentKey);
-
-                    grid[newX][newY] = 1;
-                    q.add(new int[] { newX, newY });
+                if ((nx >= 0 && nx < row && ny >= 0 && ny < col && !visited[nx][ny]) && (grid[nx][ny] == 0)) {
+                    visited[nx][ny] = true;
+                    q.add(new Pair(nx, ny, dist + 1));
                 }
 
             }
 
         }
 
-        if (grid[end[0]][end[1]] == 0) {
-            return -1;
-        }
+        return -1;
 
-        int count = 0;
-        String s = end[0] + "," + end[1];
+    }
 
-        while (parent.containsKey(s)) {
-            s = parent.get(s);
-            count++;
-        }
-
-        return count + 1;
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        return shortestPath(grid)  ;
     }
 }
