@@ -18,8 +18,12 @@ class Solution {
             nums[0] = -nums[0];
         }
 
-        return Arrays.stream(nums).sum() ;
+        int sum = 0 ;
+        for(Integer n : nums){
+            sum += n;
+        }
 
+        return sum ; 
 
     }
     public int largestSumAfterKNegations(int[] nums, int k) {
