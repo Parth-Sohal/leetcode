@@ -12,18 +12,17 @@ class Solution {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
 
-        char[] characters = new char[26];
+        HashSet<String> wordLists = new HashSet<>(wordList);
 
-        for (int i = 0; i < 26; i++) {
-            characters[i] = (char) (i + 97);
+        if (!wordLists.contains(endWord)) {
+            return 0;
         }
 
-        HashSet<String> visited = new HashSet<>(); // viisted mark ke leye
-        HashSet<String> wordLists = new HashSet<>(wordList);
+        HashSet<String> visited = new HashSet<>(); // viisted 
+        visited.add(beginWord);
 
         Queue<Pair> queue = new LinkedList<>();
         queue.add(new Pair(beginWord, 1));
-        visited.add(beginWord);
 
         while (!queue.isEmpty()) {
 
@@ -35,22 +34,22 @@ class Solution {
             sb.append(pair.word);
 
             if (word.equals(endWord)) {
-                return dist ; 
+                return dist;
             }
 
             for (int i = 0; i < word.length(); i++) {
 
                 char ch = word.charAt(i);
 
-                for (Character c : characters) {
-
+                for (char c = 'a'; c <= 'z'; c++) {
                     sb.setCharAt(i, c);
 
-                    if (wordLists.contains(sb.toString()) && !visited.contains(sb.toString())) {
+                    if (wordLists.contains(sb.toString()) &&
+                            !visited.contains(sb.toString())) {
+
                         visited.add(sb.toString());
                         queue.add(new Pair(sb.toString(), dist + 1));
                     }
-
                 }
 
                 sb.setCharAt(i, ch);
