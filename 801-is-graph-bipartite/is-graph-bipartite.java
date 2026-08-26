@@ -1,42 +1,38 @@
 class Solution {
-    public boolean dfs(int[][] graph, int[] colour, int node, int color) {
-
-        colour[node] = color;
-        int newColour = (color == 0) ? 1 : 0;
-
-        for (Integer neighbour : graph[node]) {
-
-            if (colour[neighbour] != -1) {
-
-                if (colour[neighbour] == color) {
-                    return true;
-                }
-
-            } else {
-                if (dfs(graph, colour, neighbour, newColour)) {
-                    return true;
-                }
-            }
-
-
-        }
-
-        return false;
-
-    }
     public boolean isBipartite(int[][] graph) {
-        int n = graph.length ; 
-        int[] colours = new int[n];
-        Arrays.fill(colours, -1);
+        int n = graph.length;
+        int[] colour = new int[graph.length]; // colour A -> 1 , colour B -> -1
 
         for (int i = 0; i < n; i++) {
-            if (colours[i] == -1) {
-                if(dfs(graph, colours, i, 0) ){
-                    return false ; 
-                }
+
+            if (colour[i] != 0) { // visited
+                continue;
             }
+
+            Queue<Integer> queue = new LinkedList<>();
+            colour[i] = 1;
+
+            queue.add(i);
+
+            while (!queue.isEmpty()) {
+
+                int val = queue.poll();
+
+                for (int neighbor : graph[val]) {
+                    if (colour[neighbor] == 0) {
+                        // Color neighbor with opposite color
+                        colour[neighbor] = -colour[val];
+                        queue.add(neighbor);
+                    } else if (colour[neighbor] == colour[val]) {
+                        // Conflict: adjacent nodes have the same color
+                        return false;
+                    }
+                }
+
+            }
+
         }
 
-        return true  ; 
+        return true;
     }
 }
