@@ -1,56 +1,46 @@
 class Solution {
+    public  void dfsIsland(int row, int col, int x, int y, int[][] directions, char[][] mat) {
 
-    public void dfsIsland(
-        char[][] grid , 
-        int[][] directions ,
-         int x , int y
-    ){
+        mat[x][y] = 0;
 
+        for (int[] dir : directions) {
 
-        grid[x][y] = '0' ; // visited
+            int nx = x + dir[0];
+            int ny = y + dir[1];
 
-        for(int i = 0 ; i <  directions.length ; i++){
-
-            int newX = x + directions[i][0];
-            int newY = y + directions[i][1] ;
-
-            if(
-                (newX >= 0  && newX < grid.length) &&
-                (newY >= 0 && newY < grid[0].length ) 
-                && (grid[newX][newY] == '1')
-            ){
-               dfsIsland(grid , directions , newX , newY) ; 
+            if ((nx >= 0 && nx < row) && (ny >= 0 && ny < col) && (mat[nx][ny] == '1')) {
+                dfsIsland(row, col, nx, ny, directions, mat);
             }
 
         }
-
 
     }
 
-
     public int numIslands(char[][] grid) {
 
+        int row = grid.length;
+        int col = grid[0].length;
+
         int[][] directions = {
-            {0,-1} , {0,1} , {-1,0} , {1,0} 
-        } ;
+                { 0, -1 },
+                { 0, 1 },
+                { -1, 0 },
+                { 1, 0 }
+        };
 
-        int count = 0 ; 
+        int ans = 0;
 
-        for(int i = 0 ; i < grid.length ; i++){
-            for(int j = 0 ; j < grid[i].length ; j++){
-                
-                if(grid[i][j] == '1'){
-                    count++;
-                    dfsIsland(grid , directions , i , j ) ;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+
+                if (grid[i][j] == '1') {
+                    dfsIsland(row, col, i, j, directions, grid);
+                    ans++;
                 }
-
 
             }
         }
 
-        return count ; 
-
-
-        
+        return ans;
     }
 }
