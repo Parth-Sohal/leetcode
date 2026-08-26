@@ -1,45 +1,29 @@
 class Solution {
-    public  void garphConnectedComponents(int[][] mat, boolean[] visited, int idx) {
+    public void dfsI(int[][] isConnected, int node, boolean[] visited) {
 
-        Queue<Integer> q = new LinkedList<>();
-        q.add(idx);
+        visited[node] = true;
 
-        while (!q.isEmpty()) {
-
-            int i = q.poll();
-
-            for (int col = 0; col < mat[i].length; col++) {
-                if (mat[i][col] == 1 && !visited[col]) {
-                    visited[col] = true;
-                    q.add(col);
-                }
+        for (int i = 0; i < isConnected[node].length; i++) {
+            if (isConnected[node][i] == 1 && !visited[i]) {
+                dfsI(isConnected, i, visited);
             }
-
         }
-
-    }
-
-    public int isConnected(int[][] mat) {
-
-        boolean[] visited = new boolean[mat.length];
-
-        int count = 0;
-
-        for (int row = 0; row < mat.length; row++) {
-
-            if (!visited[row]) {
-                visited[row] = true ; 
-                garphConnectedComponents(mat, visited, row);
-                count++;
-            }
-        
-        }
-
-       return count ;
 
     }
 
     public int findCircleNum(int[][] isConnected) {
-        return isConnected(isConnected) ;
+        int count = 0;
+        boolean[] visited = new boolean[isConnected.length];
+
+        for (int i = 0; i < isConnected.length; i++) {
+
+            if (!visited[i]) {
+                dfsI(isConnected, i, visited);
+                count++;
+            }
+
+        }
+
+        return count ; 
     }
 }
