@@ -14,7 +14,7 @@ class Solution {
 
         }
 
-        System.out.println(Arrays.toString(minValue));
+
 
         int max = Integer.MIN_VALUE;
 
