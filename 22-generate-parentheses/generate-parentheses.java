@@ -1,32 +1,23 @@
 class Solution {
+    public static void generateParanthesis(int n, int left, int right, String temp, List<String> ans) {
 
-     public static List<String> generate(int open , int close , int n , String ans ,  List<String> list){
-
-
-        if(open == n && close ==n){
-            // System.out.println(ans);
-            String temp = ans;
-            list.add(temp);
-            return list;
+        if (temp.length() == 2 * n) {
+            ans.add(new String(temp));
+            return ; 
         }
 
-
-        if(open != n){
-            generate(open+1, close , n , ans + '(',list);
+        if (left < n) {
+            generateParanthesis(n, left + 1, right, temp + "(", ans);
+        }
+        if (right < left) {
+            generateParanthesis(n, left, right + 1, temp + ")", ans);
         }
 
-        if(close < open){
-            generate(open, close+1 , n , ans + ')' ,list);
-        }
-
-        return list ;
     }
 
-
     public List<String> generateParenthesis(int n) {
-        
-
-        return generate(0,0,n , "" , new ArrayList<>());
-
+        List<String> ans = new ArrayList<>();
+        generateParanthesis(n, 0, 0, "", ans);
+        return ans ; 
     }
 }
