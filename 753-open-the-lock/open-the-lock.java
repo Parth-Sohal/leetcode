@@ -58,7 +58,6 @@ class Solution {
                         q.offer(nextString);
                     }
 
-                    // restore original digit
                     arr[j] = (char) (digit + '0');
                 }
             }
