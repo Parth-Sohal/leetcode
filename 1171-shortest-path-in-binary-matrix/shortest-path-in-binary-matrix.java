@@ -1,52 +1,58 @@
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
-        int n = grid.length;
-
-        // Check if start or end cell is blocked
-        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) {
+        int row = grid.length, col = grid[0].length;
+        if (grid[0][0] == 1 || grid[row - 1][col - 1] == 1)
             return -1;
-        }
-
-        // Base case for 1x1 matrix
-        if (n == 1) {
-            return 1;
-        }
+        int moves = 0;
 
         int[][] directions = {
-            {-1, -1}, {-1, 0}, {-1, 1},
-            { 0, -1},          { 0, 1},
-            { 1, -1}, { 1, 0}, { 1, 1}
+                { 0, -1 },
+                { 0, 1 },
+                { -1, 0 },
+                { 1, 0 },
+                { -1, -1 },
+                { -1, 1 },
+                { 1, -1 },
+                { 1, 1 },
         };
 
-        Queue<int[]> queue = new ArrayDeque<>();
-        queue.add(new int[]{0, 0});
-        grid[0][0] = 1; // Mark start as visited
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        Queue<int[]> q = new LinkedList<>();
+        visited[0][0] = true;
 
-        int pathLength = 1;
+        q.add(new int[] { 0, 0 });
 
-        while (!queue.isEmpty()) {
-            int size = queue.size();
+        while (!q.isEmpty()) {
+
+            int size = q.size();
 
             for (int i = 0; i < size; i++) {
-                int[] curr = queue.poll();
-                int r = curr[0];
-                int c = curr[1];
 
-                if (r == n - 1 && c == n - 1) {
-                    return pathLength;
+                int[] curr = q.poll();
+                int currX = curr[0];
+                int currY = curr[1];
+
+                if (currX == row - 1 && currY == col - 1) {
+                    return moves + 1;
                 }
 
                 for (int[] dir : directions) {
-                    int nr = r + dir[0];
-                    int nc = c + dir[1];
 
-                    if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 0) {
-                        grid[nr][nc] = 1; // Mark as visited immediately
-                        queue.add(new int[]{nr, nc});
+                    int newX = currX + dir[0];
+                    int newY = currY + dir[1];
+
+                    if ((newX >= 0 && newX < row) && (newY >= 0 && newY < col) && grid[newX][newY] == 0
+                            && !visited[newX][newY]) {
+                        visited[newX][newY] = true;
+                        q.add(new int[] { newX, newY });
                     }
+
                 }
+
             }
-            pathLength++;
+
+            moves++;
+
         }
 
         return -1;
