@@ -50,13 +50,15 @@ class Solution {
 
         int max = dist[1];
 
-        for (int i = 1; i < dist.length; i++) {
-            if (dist[i] > max)
-                max = dist[i];
+        for (int i = 1; i <= n; i++) {
 
+            if (dist[i] == Integer.MAX_VALUE) {
+                return -1;
+            }
+
+            max = Math.max(max, dist[i]);
         }
 
-        if(max == Integer.MAX_VALUE)return -1 ; 
-        return max ; 
+        return max;
     }
 }
