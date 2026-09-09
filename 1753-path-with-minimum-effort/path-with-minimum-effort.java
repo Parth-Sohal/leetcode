@@ -41,6 +41,8 @@ class Solution {
             int x = p.x;
             int y = p.y;
 
+            if(x == row - 1 && y == col - 1 )return efforts[row-1][col-1] ;
+
             for (int[] direction : directions) {
 
                 int newX = x + direction[0];
