@@ -1,17 +1,21 @@
 class Solution {
     public int reverseDegree(String s) {
+        
+
+        int ans = 0 ; 
 
 
-        int sum = 0 ;
+        for(int i = 0 ; i < s.length() ;i++){
 
-        for(int i = 0 ;  i < s.length() ; i++){
+            char ch = s.charAt(i) ;
 
-            int a = (26 - (s.charAt(i) -'a'));
-            sum = sum +  (a * (i+1));
+            ans += ( (i+1) * (26 - (ch - 'a')) ) ;
 
         }
 
-    return sum ; 
-        
+
+        return ans ; 
+
+
     }
 }
