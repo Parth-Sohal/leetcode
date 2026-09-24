@@ -1,71 +1,67 @@
 class Solution {
     public String decodeString(String s) {
+        Stack<String> st = new Stack<>();
         int i = 0;
-
-        Deque<String> deque = new LinkedList<>();
 
         while (i < s.length()) {
 
-            char ch = s.charAt(i);
+            Character ch = s.charAt(i);
 
-            if (ch == '[') {
-                deque.addLast(ch + "");
-                i++;
-            } else if (ch >= '0' && ch <= '9') {
+            if (ch == ']') {
 
-                int n = 0;
-                while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                    n = n * 10 + (s.charAt(i) - '0');
-                    i++;
+                StringBuilder sb = new StringBuilder("");
+
+                while (!st.peek().equals("[")) {
+                    sb.insert(0, st.pop());
                 }
 
-                deque.addLast(n + "");
+                st.pop();
 
-            } else if (ch >= 'a' && ch <= 'z') {
-                StringBuilder sb = new StringBuilder();
+                int n = Integer.parseInt(st.pop());
 
-                while (i < s.length() && Character.isLowerCase(s.charAt(i))) {
-                    sb.append(s.charAt(i));
-                    i++;
-                }
+                //                sb.reverse() ;
 
-                deque.addLast(sb.toString());
-            } else {
+                System.out.println(sb.toString() + " " + n);
 
-                StringBuilder sb = new StringBuilder();
+                sb.repeat(sb, n - 1);
 
-                while (!deque.isEmpty() && !deque.peekLast().equals("[")) {
-                    sb.insert(0, deque.removeLast());
-                }
+                System.out.println(sb.toString() + " " + n);
 
-                deque.pollLast();
-
-                int n = 1; // default (safe fallback)
-
-                if (!deque.isEmpty() && Character.isDigit(deque.peekLast().charAt(0))) {
-                    n = Integer.parseInt(deque.removeLast());
-                }
-
-                StringBuilder rp = new StringBuilder();
-
-                rp.append(String.valueOf(sb).repeat(Math.max(0, n)));
-
-                deque.addLast(rp.toString());
-                i++;
+                st.push(sb.toString());
 
             }
 
-            // System.out.println(deque);
+            else {
+
+                if (ch >= '0' && ch <= '9') {
+
+                    StringBuilder sb = new StringBuilder("");
+
+                    while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                        sb.append(s.charAt(i));
+                        i++;
+                    }
+
+                    st.push(sb.toString());
+                    i--;
+
+                }
+
+                else {
+                    st.push(ch.toString());
+                }
+            }
+
+            i++;
 
         }
 
         StringBuilder sb = new StringBuilder();
 
-        while (!deque.isEmpty()) {
-            sb.append(deque.removeFirst());
+        while (!st.isEmpty()) {
+            sb.insert(0, st.pop());
         }
 
         return sb.toString();
-
     }
 }
