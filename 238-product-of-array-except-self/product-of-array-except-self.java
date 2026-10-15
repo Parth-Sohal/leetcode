@@ -1,22 +1,30 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] prf =  new int[nums.length];
-        prf[0] = 1;
+        
 
-        for(int i = 1 ; i < nums.length ; i++){
-
-            prf[i] = prf[i-1] * nums[i-1];
+        // brute can go 
+        // like create a new array and then add then go nested loops 
+    
+        int n = nums.length ;
+        int[] prefixArray = new int[n];
+        int prod = 1 ; 
+        
+        for(int i = 0 ; i < n ; i++){
+            prefixArray[i] = prod ;
+            prod = prod * nums[i];
         }
 
-        // System.out.println(Arrays.toString(prf));
+        prod = 1 ; 
 
-        int prd = 1 ;
+        for(int i = n-1 ; i >= 0 ; i--){
 
-        for(int i = prf.length - 1 ; i >= 0 ; i--){
-            prf[i] = prf[i] * prd;
-            prd *= nums[i];
+            int ele = nums[i];
+            nums[i] = prod * prefixArray[i];
+            prod = prod * ele;
+
         }
 
-        return prf ; 
+        return nums ;
+
     }
 }
