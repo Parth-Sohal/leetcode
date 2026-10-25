@@ -1,57 +1,52 @@
 class Solution {
-    public static void dfsEnclave(
-            int[][] grid,
-            int[][] directions,
-            int x, int y) {
+    public void dfs(int[][] grid, int row, int col) {
 
-        grid[x][y] = 0;
-
-        for (int[] dir : directions) {
-            int nx = x + dir[0];
-            int ny = y + dir[1];
-
-            if ((nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length) && grid[nx][ny] == 1) {
-                dfsEnclave(grid, directions, nx, ny);
-            }
-
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] == 0) {
+            return;
         }
+
+        grid[row][col] = 0;
+
+        dfs(grid, row - 1, col);
+        dfs(grid, row, col - 1);
+        dfs(grid, row, col + 1);
+        dfs(grid, row + 1, col);
 
     }
 
     public int numEnclaves(int[][] grid) {
-       
 
-        int row = grid.length;
-        int col = grid[0].length;
+        //0 0 0 0 0
+        //1 1 0 1 0
+        //0 1 0 1 0
+        //0 0 0 0 0
 
-        int[][] directions = {
-                { 0, -1 },
-                { 0, 1 },
-                { 1, 0 },
-                { -1, 0 }
-        };
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
 
-        // only boundary
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-
-                if (grid[i][j] == 1 && (i == 0 || i == row - 1 || j == 0 || j == col - 1)) {
-                    dfsEnclave(grid, directions, i, j);
+                if (grid[row][col] == 1
+                        && (row == 0 || row == grid.length - 1 || col == 0 || col == grid[0].length - 1)) {
+                    dfs(grid, row, col);
+                
                 }
 
             }
         }
 
+        // System.out.println(Arrays.deepToString(grid));
+
         int count = 0;
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (grid[i][j] == 1) {
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 1) {
                     count++;
                 }
             }
         }
 
-        return count  ; 
+        return count;
+
     }
+
 }
