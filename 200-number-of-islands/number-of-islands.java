@@ -1,46 +1,57 @@
 class Solution {
-    public  void dfsIsland(int row, int col, int x, int y, int[][] directions, char[][] mat) {
 
-        mat[x][y] = 0;
+    public void bfs(char[][] grid, int x, int y, boolean[][] visited) {
 
-        for (int[] dir : directions) {
+        int[][] directions = { { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
+        Queue<int[]> q = new LinkedList<>();
+        visited[x][y] = true;
+        int row = grid.length, col = grid[0].length;
 
-            int nx = x + dir[0];
-            int ny = y + dir[1];
+        q.add(new int[] { x, y });
 
-            if ((nx >= 0 && nx < row) && (ny >= 0 && ny < col) && (mat[nx][ny] == '1')) {
-                dfsIsland(row, col, nx, ny, directions, mat);
+        while (!q.isEmpty()) {
+
+            int[] d = q.poll();
+            int currX = d[0];
+            int currY = d[1];
+
+            for (int[] dir : directions) {
+
+                int newX = currX + dir[0];
+                int newY = currY + dir[1];
+
+                if ((newX >= 0 && newX < row) && (newY >= 0 && newY < col) && !visited[newX][newY]
+                        && grid[newX][newY] == '1') {
+                    visited[newX][newY] = true;
+                    q.add(new int[] { newX, newY });
+                }
+
             }
 
         }
 
     }
 
-    public int numIslands(char[][] grid) {
+    public  int numIslands(char[][] grid) {
 
-        int row = grid.length;
-        int col = grid[0].length;
+        // bfs
 
-        int[][] directions = {
-                { 0, -1 },
-                { 0, 1 },
-                { -1, 0 },
-                { 1, 0 }
-        };
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int count = 0;
 
-        int ans = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-
-                if (grid[i][j] == '1') {
-                    dfsIsland(row, col, i, j, directions, grid);
-                    ans++;
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    bfs(grid, i, j, visited);
+                    count++;
                 }
 
             }
         }
 
-        return ans;
+        return count;
+
     }
+
 }
