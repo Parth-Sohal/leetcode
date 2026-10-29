@@ -1,10 +1,12 @@
 class Solution {
     public int beautySum(String s) {
-        int[] arr = new int[26];
+       
         int ans = 0;
         int n = s.length();
 
         for (int i = 0; i < n; i++) {
+
+            int[] arr = new int[26];
 
             for (int j = i; j < n; j++) {
 
@@ -21,12 +23,10 @@ class Solution {
                     min = Math.min(min, k);
                 }
 
-                //                System.out.println(max + " " + min);
+            
                 ans += max - min;
 
             }
-
-            Arrays.fill(arr, 0);
 
         }
         return ans;
