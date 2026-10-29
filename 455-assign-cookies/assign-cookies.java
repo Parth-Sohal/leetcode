@@ -3,21 +3,25 @@ class Solution {
         Arrays.sort(g);
         Arrays.sort(s);
 
-        int total = 0;
-
         int i = 0;
         int j = 0;
 
+        int ans = 0;
+
         while (i < g.length && j < s.length) {
-            if(s[j] >= g[i]){
-                total++;
+
+            if (g[i] <= s[j]) {
+                ans++;
                 i++;
+                j++;
             }
 
-            j++;
+            else {
+                j++;
+            }
+
         }
 
-        return total ; 
-
+        return ans;
     }
 }
