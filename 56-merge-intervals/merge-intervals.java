@@ -1,44 +1,48 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
+        List<List<Integer>> lists = new ArrayList<>();
 
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-
-        List<int[]> merged = new ArrayList<>();
 
         int start = intervals[0][0];
         int end = intervals[0][1];
 
-        int i = 1;
-        int n = intervals.length;
+        int idx = 1;
 
-        while (i < n) {
+        while (idx < intervals.length) {
 
-            if (intervals[i][0] > end) {
-                int[] temp = new int[2];
-                temp[0] = start;
-                temp[1] = end;
-                merged.add(temp);
-
-                start = intervals[i][0];
-                end = intervals[i][1];
+            if (end >= intervals[idx][0]) {
+                end = Math.max(intervals[idx][1] , end);
+                
             }
 
-            else if (intervals[i][1] > end) {
-                end = intervals[i][1];
+            else {
+                List<Integer> list = new ArrayList<>();
+                list.add(start);
+                list.add(end);
+
+                start = intervals[idx][0];
+                end = intervals[idx][1];
+                lists.add(list);
             }
 
-            i++;
-
+            idx++;
         }
 
-        int[] temp = new int[2];
+        List<Integer> list = new ArrayList<>();
+        list.add(start);
+        list.add(end);
 
-        temp[0] = start;
-        temp[1] = end;
-        merged.add(temp);
+        lists.add(list);
 
+        int[][] ans = new int[lists.size()][2];
 
-        return merged.toArray(new int[merged.size()][2]);
+        for (int i = 0; i < lists.size(); i++) {
+            ans[i][0] = lists.get(i).get(0);
+            ans[i][1] = lists.get(i).get(1);
+        }
+
+        return ans;
 
     }
 }
