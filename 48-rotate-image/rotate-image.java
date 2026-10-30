@@ -1,45 +1,36 @@
 class Solution {
-    public void rotate(int[][] matrix) {
+    public void reverseArray(int[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
 
-        int n = matrix.length ;
+        while (left < right) {
+            // Swap elements at left and right indices
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
 
-        for(int i = 0 ; i < n ; i++){
+            left++;
+            right--;
+        }
+    }
 
-            for(int j = 0 ; j < n ; j++){
+    public void rotate(int[][] grid) {
 
-                if(j < i){
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
 
-                    int temp = matrix[i][j];
-                    matrix[i][j] = matrix[j][i] ;
-                    matrix[j][i] = temp ;
+                if (j <= i) {
+                    int temp = grid[i][j];
+                    grid[i][j] = grid[j][i];
+                    grid[j][i] = temp;
                 }
 
-                else {
-                    break ; 
-                }
-
-                
-                
-
             }
-
         }
 
-
-        for(int i = 0 ; i < n ; i++){
-
-            int j = 0 ;
-            int k = n - 1;
-
-            while( j < k ){
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][k] ;
-                matrix[i][k] = temp ;
-                j++;
-                k--;
-            }
-
+        for (int[] arr : grid) {
+            reverseArray(arr);
         }
-        
+
     }
 }
