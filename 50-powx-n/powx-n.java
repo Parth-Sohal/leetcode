@@ -1,27 +1,33 @@
 class Solution {
-    public double ans(double x , int n){
-        if (n == 0) {
-            return 1;
+
+    public double pow(double a, int b) {
+        
+        if(b == 0){
+            return 1 ; 
         }
 
-        double ans1 = ans(x, n / 2);
+        if (b == 1) {
+            return a;
+        }
 
-        if (n % 2 == 0) {
-            return ans1 * ans1;
+        double ans = pow(a, b / 2);
+
+        if (b % 2 == 0) {
+            return ans * ans;
         } else {
-            return x * ans1 * ans1;
+            return a * ans * ans;
         }
     }
 
-
     public double myPow(double x, int n) {
-    
 
         if(n < 0){
-            return 1.0/ ans(x,-n);
+            return 1/ pow(x,n);
         }
 
-        return ans(x,n);        
+
+        return pow(x,n) ;
+
 
     }
 }
