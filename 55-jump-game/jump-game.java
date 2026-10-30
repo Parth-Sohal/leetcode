@@ -1,22 +1,22 @@
 class Solution {
     public boolean canJump(int[] nums) {
-        int maxReachable = 0;
-        
-        for (int i = 0; i < nums.length; i++) {
 
-            if (i > maxReachable) {
+
+        int maxJumps = nums[0], n = nums.length;
+
+        for (int i = 1; i < n; i++) {
+
+            if (maxJumps >= i) {
+                maxJumps = Math.max(maxJumps, i + nums[i]);
+                if (maxJumps >= n - 1) {
+                    return true;
+                }
+            } else {
                 return false;
             }
-            
 
-            maxReachable = Math.max(maxReachable, i + nums[i]);
-            
-            // Optimization: If we can reach or exceed the last index
-            if (maxReachable >= nums.length - 1) {
-                return true;
-            }
         }
-        
-        return true;
+
+        return true ; 
     }
 }
