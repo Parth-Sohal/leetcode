@@ -1,38 +1,34 @@
 class Solution {
 
-    public List<String> letterCombination(String digit , int i , HashMap<Character, String> map , String ans , List<String> lists){
+    private void helper(String digits, HashMap<Character, String> map,
+            int idx, String ans, List<String> list) {
 
-
-
-        if( i == digit.length()){
-            // System.out.println(ans);
-            lists.add(ans);
-            return lists;
+        if (idx >= digits.length()) {
+            list.add(ans);
+            return;
         }
 
-        String s = map.get(digit.charAt(i));
-        for(int idx = 0 ; idx < s.length() ;idx++){
-            letterCombination(digit,i+1,map,ans+s.charAt(idx) ,lists);
+        for (int i = 0; i < map.get(digits.charAt(idx)).length(); i++) {
+            helper(digits, map, idx + 1, ans + map.get(digits.charAt(idx)).charAt(i), list);
         }
-
-        return lists;
-
 
     }
 
     public List<String> letterCombinations(String digits) {
+        HashMap<Character, String> mpp = new HashMap<>();
 
-        HashMap<Character, String> map = new HashMap<>();
+        mpp.put('2', "abc");
+        mpp.put('3', "def");
+        mpp.put('4', "ghi");
+        mpp.put('5', "jkl");
+        mpp.put('6', "mno");
+        mpp.put('7', "pqrs");
+        mpp.put('8', "tuv");
+        mpp.put('9', "wxyz");
 
-        map.put('2',"abc");
-        map.put('3',"def");
-        map.put('4',"ghi");
-        map.put('5',"jkl");
-        map.put('6',"mno");
-        map.put('7',"pqrs");
-        map.put('8',"tuv");
-        map.put('9',"wxyz");
+        ArrayList<String> list = new ArrayList<String>();
+        helper(digits, mpp, 0, "", list);
 
-        return  letterCombination(digits , 0,map,"" , new ArrayList<>());
+        return list ; 
     }
 }
