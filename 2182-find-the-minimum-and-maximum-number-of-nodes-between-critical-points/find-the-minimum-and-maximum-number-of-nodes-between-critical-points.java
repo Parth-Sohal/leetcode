@@ -11,60 +11,52 @@
 class Solution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
 
-        int[] ans = new int[2];
-        Arrays.fill(ans,-1);
+        if(head.next == null || head.next.next == null){
+            return new int[]{-1,-1};
+        }
+
+        int firstPost = -1; 
+        int lastPost =  -1; 
+
+
+        int minDist = Integer.MAX_VALUE  ; 
+
+        int idx = 1 ; 
 
         ListNode prev = head ;
-        ListNode curr = head.next ;
-
-        int first = -1;
-        int last = -1 ; 
-        int next = -1;
-
-        int post = 2 ;
-
-        int minDist = Integer.MAX_VALUE ;
-        // int maxDist = Integer.MAX_VALUE ;
-        
-        while(curr.next != null ){
-
-            int a = prev.val ;
-            int b = curr.val ; 
-            int c = curr.next.val ; 
+        ListNode curr = head.next ; 
 
 
+        while(curr.next != null){
 
-            if( (a > b && b < c) || ( a < b  && b > c ) ){
+            if((curr.val > prev.val && curr.val > curr.next.val) || (curr.val < prev.val && curr.val < curr.next.val)){
 
-                if(first == -1){
-                    first = post ;
+                if(firstPost == -1){
+                    firstPost = idx;
+                }
+                else{
+                    minDist = Math.min(minDist , idx - lastPost);
                 }
 
-                last = next ;
-                next = post ; 
-
-
-                if(last != -1){
-                    minDist = Math.min(minDist , next - last);
-                }
-
+                lastPost = idx ;
+    
             }
 
-            post++;
-            prev = prev.next ;
+
+            idx++;
+            
+            prev = curr ; 
             curr = curr.next ; 
 
+        } 
+
+        if(firstPost == -1 || lastPost == firstPost){
+            return new int[]{-1,-1};
         }
 
-        if(last == -1){
-            return ans ;
-        }
 
-        ans[0] = minDist ; 
-        ans[1] = next - first ;
+        return new int[]{minDist , lastPost - firstPost};
 
 
-        return ans ; 
-        
     }
 }
