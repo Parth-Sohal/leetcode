@@ -1,62 +1,40 @@
 class Solution {
     public int countServers(int[][] grid) {
+        
+        int row = grid.length , col = grid[0].length , ans = 0  ;
 
-        int ans = 0;
+        int[] rowArr = new int[row];
+        int[] colArr = new int[col] ;
 
-        // n * m
-        int row = grid.length;// n
-        int col = grid[0].length; // m
 
-        for (int _row = 0; _row < row; _row++) {
-            for (int _col = 0; _col < col; _col++) {
 
-                if (grid[_row][_col] == 1) {
+        for(int i = 0 ; i < row; i++){
 
-                    int temp = 0;
+            for(int j = 0 ; j < col ; j++){
 
-                    Queue<int[]> q = new LinkedList<>();
-                    q.add(new int[] { _row, _col });
-                    grid[_row][_col] = 0;
-
-                    while (!q.isEmpty()) {
-
-                        int[] arr = q.poll();
-                        int x = arr[0];
-                        int y = arr[1];
-                        temp++;
-
-                        for (int i = 0; i < col; i++) {
-
-                            if (grid[x][i] == 1) {
-                                grid[x][i] = 0;
-                                q.offer(new int[] { x, i });
-                            }
-
-                        }
-
-                        for (int i = 0; i < row; i++) {
-
-                            if (grid[i][y] == 1) {
-                                grid[i][y] = 0;
-                                q.offer(new int[] { i, y });
-                            }
-
-                        }
-
-                    }
-
-                    if (temp > 1) {
-                        ans += temp;
-                    }
-
-                }
+                if(grid[i][j] == 1){
+                    rowArr[i]++;
+                    colArr[j]++;
+                } 
 
             }
+
         }
 
-        // System.out.println(ans);
 
-        return ans;
+        for(int i = 0 ; i < row; i++){
+
+            for(int j = 0 ; j < col ; j++){
+
+            if(grid[i][j] == 1 && (rowArr[i] > 1 || colArr[j] > 1)){
+                   ans++;
+                } 
+
+            }
+
+        }
+
+        return ans; 
 
     }
 }
