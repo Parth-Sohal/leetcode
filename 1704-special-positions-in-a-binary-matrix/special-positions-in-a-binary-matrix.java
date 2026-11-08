@@ -1,35 +1,36 @@
 class Solution {
-    public int numSpecial(int[][] mat) {
-        int[] row = new int[mat.length];
-        int[] col = new int[mat[0].length];
+    public int numSpecial(int[][] grid) {
+        
+        int row = grid.length, col = grid[0].length, ans = 0;
 
-        for (int i = 0; i < mat.length; i++) {
+        int[] rowArr = new int[row];
+        int[] colArr = new int[col];
 
-            for (int j = 0; j < mat[i].length; j++) {
+        for (int i = 0; i < row; i++) {
 
-                if (mat[i][j] == 1) {
-                    row[i]++;
-                    col[j]++;
+            for (int j = 0; j < col; j++) {
+
+                if (grid[i][j] == 1) {
+                    rowArr[i]++;
+                    colArr[j]++;
                 }
 
             }
 
         }
 
-        int count = 0;
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < mat[i].length; j++) {
+        for (int i = 0; i < row; i++) {
 
-                if (mat[i][j] == 1) {
-                    if (row[i] == 1 && col[j] == 1) {
-                        count++;
-                    }
+            for (int j = 0; j < col; j++) {
+
+                if (grid[i][j] == 1 && (rowArr[i] == 1  && colArr[j] == 1)) {
+                    ans++;
                 }
 
             }
+
         }
 
-        return count ; 
-
+        return ans;
     }
 }
