@@ -1,45 +1,44 @@
 class Solution {
-    public List<Integer> luckyNumbers(int[][] arr) {
-        int row = arr.length;
-        int col = arr[0].length;
+    public List<Integer> luckyNumbers(int[][] matrix) {
 
-
-        int[] rows = new int[row];
-        int[] cols = new int[col];
-
-
-        for(int i = 0; i < row; i++) {
-            int min =  Integer.MAX_VALUE;
-            for(int j = 0; j < col; j++) {
-                if(arr[i][j] < min) {
-                    min = arr[i][j];
-                }
-            }
-            rows[i] = min;
-        }
-
-        for(int i = 0; i < col; i++) {
-            int max =  Integer.MIN_VALUE;
-            for(int j = 0 ; j < row ; j++){
-                if(arr[j][i] > max) {
-                    max = arr[j][i];
-                }
-            }
-            cols[i] = max;
-        }
-
+        int row = matrix.length;
+        int col = matrix[0].length;
         List<Integer> list = new ArrayList<>();
 
+        int[] rowArr = new int[row];
+        int[] colArr = new int[col];
 
-        for(int i = 0; i < row; i++) {
-            for(int j = 0; j < col; j++) {
-                if(arr[i][j] == rows[i] && arr[i][j] == cols[j]) {
-                    list.add(arr[i][j]);
-                }
+        for (int i = 0; i < row; i++) {
+            int min = Integer.MAX_VALUE; // Change from MIN_VALUE to MAX_VALUE
+            for (int j = 0; j < col; j++) {
+                min = Math.min(matrix[i][j], min); // Use Math.min instead of Math.max
             }
+            rowArr[i] = min;
         }
 
+        for (int i = 0; i < col; i++) {
+            int max = Integer.MIN_VALUE;
+            for (int j = 0; j < row; j++) {
+                if (matrix[j][i] > max) {
+                    max = matrix[j][i];
+                }
+            }
+            colArr[i] = max;
+        }
+
+        for (int i = 0; i < row; i++) {
+
+            for (int j = 0; j < col; j++) {
+
+                if (matrix[i][j] == rowArr[i] && matrix[i][j] == colArr[j]) {
+                    list.add(matrix[i][j]);
+                }
+
+            }
+
+        }
 
         return list;
+
     }
 }
