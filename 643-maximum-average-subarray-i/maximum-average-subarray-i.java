@@ -10,7 +10,7 @@ class Solution {
 
             sum += nums[i];
 
-            if(i - start + 1 >= k){
+            if(i - start + 1 == k){
                 double ans = sum / k ; 
                 max = Math.max(max , ans);
                 sum -= nums[start++];
