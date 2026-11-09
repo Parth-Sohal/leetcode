@@ -1,28 +1,32 @@
 class Solution {
     public int longestSubarray(int[] nums) {
 
+        int max = 0 ; 
+        int k = 1 , n = nums.length ; 
         int start = 0 ;
-        int n = nums.length ; 
-        int countZero = 0 ; 
-        int max = 0 ;
-
-        // dyanamic window size
-
+        
         for(int i = 0 ; i < n ; i++){
 
             if(nums[i] == 0){
-                countZero++ ;
+
+                while(k == 0){
+
+                    if(nums[start++] == 0){
+                        k++;
+                    }
+
+                }
+
+                k--;
+
+
             }
 
-            if(countZero > 1){
-                if(nums[start]== 0)countZero-- ;
-                start++;
-            }
+            max = Math.max(i - start , max);
 
-            if(countZero <= 1)max = Math.max(max , i - start) ;
         }
 
         return max ; 
-        
+
     }
 }
