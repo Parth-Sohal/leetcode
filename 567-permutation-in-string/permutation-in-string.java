@@ -1,47 +1,32 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
+        int[] arr1 = new int[26];
+        int[] arr2 = new int[26];
 
         int n = s1.length();
         int m = s2.length();
 
-        if (n > m)
+        if (n > m) {
             return false;
-
-        Map<Character, Integer> map1 = new HashMap<>();
-
-        for (int i = 0; i < n; i++) {
-            char c = s1.charAt(i);
-            map1.put(c, map1.getOrDefault(c, 0) + 1);
         }
 
-        Map<Character, Integer> map2 = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            arr1[s1.charAt(i) - 'a']++;
+        }
+
+        int start = 0;
 
         for (int j = 0; j < m; j++) {
-            char c = s2.charAt(j);
 
-            if (map1.containsKey(c)) {
-                map2.put(c, map2.getOrDefault(c, 0) + 1);
-            }
+            char ch = s2.charAt(j);
+            arr2[ch - 'a']++;
 
-            if (j >= n ) {
+            if (j - start + 1 == n) {
 
-                char ch = s2.charAt(j - n);
-
-                if (map2.containsKey(ch)) {
-                    map2.put(ch, map2.get(ch) - 1);
-
-                    if (map2.get(ch) == 0) {
-                        map2.remove(ch);
-                    }
-                }
-
-            }
-
-            if (j >= n-1 && map1.size() == map2.size()) {
                 boolean flag = true;
 
-                for (Character key : map1.keySet()) {
-                    if (!map1.get(key).equals(map2.getOrDefault(key, 0))) {
+                for (int i = 0; i < 26; i++) {
+                    if (arr1[i] != arr2[i]) {
                         flag = false;
                         break;
                     }
@@ -51,11 +36,12 @@ class Solution {
                     return true;
                 }
 
+                arr2[s2.charAt(start++) - 'a']--;
+
             }
 
         }
 
-        return false ; 
-
+        return false;
     }
 }
