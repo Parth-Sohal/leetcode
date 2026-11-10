@@ -1,28 +1,38 @@
 class Solution {
-    // atlseat not at most 
     public long countSubarrays(int[] nums, int k) {
+        long ans = 0;
+        int n = nums.length;
 
-        int max = Arrays.stream(nums).max().getAsInt();
+        int max = Integer.MIN_VALUE;
+        int count = 0;
 
-        int count = 0 ;
-        int start = 0 ;
-        long ans = 0 ;
+        for (int i : nums) {
+            max = Math.max(i, max);
+        }
 
-        for(int i = 0 ; i < nums.length ; i++){
+        int start = 0;
 
-            if(nums[i] == max)count = count + 1;
+        for (int i = 0; i < n; i++) {
 
-            while(count >= k){
-                ans += (nums.length - i) ;
-                if(nums[start] == max){
+            if (nums[i] == max) {
+                count++;
+            }
+
+            while (count >= k) {
+
+                ans += (n - i);
+
+                if (nums[start] == max) {
                     count--;
                 }
+
                 start++;
+
             }
 
         }
 
-        return ans ; 
-       
+        return ans;
+
     }
 }
