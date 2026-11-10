@@ -1,36 +1,28 @@
 class Solution {
+    public int atMostK(int[] nums, int k) {
 
-    public int helper(int[] nums, int goal) {
+        if(k < 0)return 0 ; 
 
-        if(goal < 0)return 0 ; 
+        int start = 0, n = nums.length, ans = 0 , sum = 0 ;
 
-        int total = 0 ;
-        int start = 0 ;
-        int sum = 0 ;
+        for (int end = 0; end < n; end++) {
 
-        for(int i = 0 ; i < nums.length ; i++){
+            sum += nums[end];
 
-            sum += nums[i];
-            
-            while(start <= i && sum > goal){
+            while(sum > k){
                 sum -= nums[start++];
             }
 
-            total += (i - start + 1);
-            
+
+            ans += (end - start + 1);
+
         }
-        
-        
-        return total;
-        
+
+        return ans;
+
     }
 
-
     public int numSubarraysWithSum(int[] nums, int goal) {
-
-        return helper(nums , goal) - helper(nums , goal - 1) ; 
-
-
-
+        return atMostK(nums, goal) - atMostK(nums,goal -1); 
     }
 }
