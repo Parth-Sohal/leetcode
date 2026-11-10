@@ -1,6 +1,8 @@
 class Solution {
     public int atMostK(int[] nums, int k) {
 
+        if (k <= 0) return 0;
+
         HashMap<Integer, Integer> map = new HashMap<>();
         int start = 0, n = nums.length, ans = 0;
 
