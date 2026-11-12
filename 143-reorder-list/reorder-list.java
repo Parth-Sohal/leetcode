@@ -9,37 +9,51 @@
  * }
  */
 class Solution {
+
+    public ListNode reverse(ListNode head){
+
+       if (head == null || head.next == null) {
+        return head;
+    }
+    
+    ListNode newHead = reverse(head.next);
+    head.next.next = head; // Agle node ko peeche point karwaya
+    head.next = null;      // Purane connection ko cut kiya taaki cycle na bane
+    
+    return newHead;
+    }
+
     public void reorderList(ListNode head) {
-
-        Stack<ListNode> st = new Stack<>() ;
-        ListNode curr = head ;
-
-        while(curr != null){
-            st.push(curr);
-            curr = curr.next ;
-        }
-
-        int n = st.size() ;
-     
-        curr = head ;
-
-        while(st.size() > (n+1)/2){
-
-            // need 
-            ListNode temp = st.pop();
-            ListNode next = curr.next ; 
-
-            // operations 
-            curr.next = temp ;
-            temp.next = next ; 
-
-            // next iterations 
-            curr = next ; 
-
-
-        }
-
-        curr.next = null ; 
         
+        ListNode slow = head ; 
+        ListNode fast = head; 
+
+        while(fast != null && fast.next != null){
+            slow = slow.next ; 
+            fast = fast.next.next ; 
+        }
+
+
+        ListNode head1  = head ; 
+        ListNode head2 = reverse(slow.next)  ;
+
+        slow.next = null;
+
+
+        while(head1 != null && head2 != null){
+
+            ListNode head1Next = head1.next ; 
+            ListNode head2Next = head2.next ; 
+
+            head1.next = head2 ; 
+            head2.next = head1Next ; 
+
+            head1 = head1Next ; 
+            head2 = head2Next ; 
+
+        }
+
+    
+
     }
 }
