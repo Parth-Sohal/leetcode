@@ -1,45 +1,39 @@
 class Solution {
-    public String removeKdigits(String s, int k) {
-        Deque<Integer> d = new ArrayDeque<>();
+    public String removeKdigits(String num, int k) {
+        Stack<Integer> st = new Stack<>();
 
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < num.length(); i++) {
 
-            int n = s.charAt(i) - '0';
+            int n = num.charAt(i) - '0';
 
-            while (!d.isEmpty() && k > 0 && n < d.peekLast()) {
-                d.pollLast();
+            while (!st.isEmpty() && k > 0 && n < st.peek()) {
+                st.pop();
                 k--;
             }
 
-            d.addLast(n);
+            st.push(n);
 
         }
 
-        int ans = 0;
-
-        // System.out.println(d);
-
-        while (!d.isEmpty() && k > 0) {
-            d.pollLast();
+        while (k > 0) {
+            st.pop();
             k--;
         }
 
-        // build result
         StringBuilder sb = new StringBuilder();
-        while (!d.isEmpty()) {
-            sb.append(d.pollFirst());
+
+        while (!st.isEmpty()) {
+            sb.append(st.pop());
         }
 
-        // remove leading zeros
-        while (sb.length() > 1 && sb.charAt(0) == '0') {
-            sb.deleteCharAt(0);
+        sb.reverse();
+
+        int start = 0;
+        while (start < sb.length() && sb.charAt(start) == '0') {
+            start++;
         }
 
-        if (sb.length() == 0) {
-            return "0";
-        }
-
-        return sb.toString();
-
+        String result = sb.substring(start);
+        return result.length() == 0 ? "0" : result;
     }
 }
