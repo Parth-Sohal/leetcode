@@ -15,24 +15,30 @@
  */
 class Solution {
 
-    public static void rightVeiw(TreeNode root, List<Integer> list, int level) {
+    public void rightDFs(TreeNode root , List<Integer> list, int depth){
 
-        if (root == null) {
-            return;
+        if(root == null){
+            return ; 
         }
 
-        if (level == list.size()) {
+        if(list.size() < depth){
             list.add(root.val);
         }
 
-        rightVeiw(root.right, list, level + 1);
-        rightVeiw(root.left, list, level + 1);
+
+        rightDFs(root.right,list , depth+1);
+        rightDFs(root.left,list , depth+1);
+
 
     }
 
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list = new ArrayList<>() ;
-        rightVeiw(root, list ,  0); 
+        List<Integer> list = new ArrayList<>();
+
+        rightDFs(root, list , 1);
+
+
         return list ; 
+
     }
 }
