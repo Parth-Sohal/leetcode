@@ -1,43 +1,28 @@
 class Solution {
-
-    private class TempratureStore{
-
-        int temp ;
-        int idx ;
-
-        TempratureStore(int temp , int idx){
-            this.temp = temp ;
-            this.idx = idx ;
-        }
-
-    }
-
-
     public int[] dailyTemperatures(int[] temperatures) {
-        
-        Stack<TempratureStore> st = new Stack<>();
+        Stack<Integer> st = new Stack<>();
+        int n =  temperatures.length;
+        int[] ans = new int[n];
 
-        for(int i = temperatures.length-1 ; i>=0 ; i--){
+        for(int i = n - 1 ; i >= 0 ; i--){
 
-            int temp = temperatures[i];
+            int num = temperatures[i];
 
-            while(!st.isEmpty() && temp >= st.peek().temp){
+            while(!st.isEmpty()  && num >= temperatures[st.peek()]){
                 st.pop();
             }
 
             if(st.isEmpty()){
-                temperatures[i]  = 0;
-            }else{
-                temperatures[i] = st.peek().idx - i ;
+                ans[i] =  0 ;
             }
 
-
-            st.push(new TempratureStore(temp , i));
-
+            else{
+                ans[i] = st.peek() - i ;
+            }
+            
+            st.push(i);
+            
         }
-
-        return temperatures ;
-
-
+        return ans ; 
     }
 }
