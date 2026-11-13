@@ -16,7 +16,7 @@ class Solution {
         }
 
 
-        if(root.val == p.val || root.val == q.val){
+        if(root == p || root == q){
             return root; 
         }
 
@@ -38,7 +38,7 @@ class Solution {
         }
 
 
-        if(left.val != right.val){
+        if(left != right){
             return root ;
         }
 
