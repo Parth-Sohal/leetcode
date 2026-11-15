@@ -1,37 +1,44 @@
 class Solution {
-    private int helper(int[] arr, int val) {
+    public boolean helper(int[] nums, int mid, int m) {
+
+        int lastPost = nums[0];
         int count = 1;
-        int lastIdx = 0;
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] - arr[lastIdx] >= val) {
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - lastPost >= mid) {
+                lastPost = nums[i];
                 count++;
-                lastIdx = i;
+            }
+
+            if (count == m) {
+                return true;
             }
         }
 
-        return count;
+        return count >= m;
 
     }
 
     public int maxDistance(int[] position, int m) {
+
         Arrays.sort(position);
 
         int low = 1;
         int high = position[position.length - 1] - position[0];
 
         while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int res = helper(position, mid);
-            // System.out.println("cuurent i : " + mid + "   current count : " + res);
 
-            if (res < m) {
-                high = mid - 1;
-            } else {
+            int mid = low + (high - low) / 2;
+
+            if (helper(position, mid, m)) {
                 low = mid + 1;
+            } else {
+                high = mid - 1;
             }
+
         }
 
-        return high ;
+        return high;
 
     }
 }
