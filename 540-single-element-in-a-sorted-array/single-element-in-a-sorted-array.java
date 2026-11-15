@@ -1,38 +1,31 @@
 class Solution {
     public int singleNonDuplicate(int[] nums) {
-        
-        int low = 0 ;
+        int low = 0;
         int high = nums.length - 1;
 
-        while(low < high){
+        while (low < high) {
 
-            int mid = low + ( high - low ) / 2 ;
+            int mid = low + (high - low) / 2;
 
-            if(mid % 2 == 0){
-
-                if(nums[mid] == nums[mid+1]){
-                    low = mid + 2;
-                }
-                else{
-                    high = mid ;
-                }
-
-            }
-
-            else{
-                if(nums[mid] == nums[mid-1]){
+            if (mid % 2 != 0) // odd can never be answer
+            {
+                if (nums[mid] == nums[mid + 1]) {
+                    high = mid - 1;
+                } else {
                     low = mid + 1;
                 }
+            }
 
-                else{
-                    high = mid - 1;
+            else {
+                if (nums[mid] == nums[mid + 1]) {
+                    low = mid + 2;
+                } else {
+                    high = mid;
                 }
             }
 
-
         }
-
-        return nums[low] ;
-
+        return nums[low];
     }
 }
+// answer is always even 
