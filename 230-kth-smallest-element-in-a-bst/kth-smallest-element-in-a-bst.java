@@ -15,28 +15,34 @@
  */
 class Solution {
 
-    private int count = 0;
-    private int ans = -1;
+    private int count = 0 ; 
 
-    private void kthSmallest1(TreeNode root, int k) {
-        if (root == null) {
-            return;
+    public TreeNode kth(TreeNode root , int k){
+
+        if(root == null){
+            return null;
         }
 
-        kthSmallest1(root.left, k);
+
+        TreeNode ans = kth(root.left , k);
+
         count++;
-
-        if (count == k) {
-            ans = root.val;
-            return;
+        if(count == k){
+            return root;
         }
 
-        kthSmallest1(root.right, k);
-    }
 
-    public int kthSmallest(TreeNode root, int k) {
-        kthSmallest1(root, k) ;
+        if(ans == null){
+            ans = kth(root.right, k);
+        }
+
 
         return ans ; 
+        
+    }
+    
+    
+    public int kthSmallest(TreeNode root, int k) {
+        return kth(root, k).val ; 
     }
 }
