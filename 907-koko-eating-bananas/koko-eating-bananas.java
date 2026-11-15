@@ -1,34 +1,41 @@
 class Solution {
-
-    private long helper(int[] piles, long h) {
+    public boolean helper(int[] nums, long mid, int limit) {
 
         long count = 0;
-        for (int i = 0; i < piles.length; i++) {
-            count += (piles[i] + h - 1) / h;
+
+        for (int i : nums) {
+            count += ((i + mid - 1 )/ mid);
         }
 
-        return count;
+        return count <= limit;
 
     }
 
-    public int minEatingSpeed(int[] piles, int h) {
+    public int minEatingSpeed(int[] nums, int h) {
+        long low = 1;
 
-        long min = 1;
-        long max = Arrays.stream(piles).max().getAsInt();
+        long high = nums[0];
 
-        while (min <= max) {
-
-            long mid = (min + max) / 2;
-
-            long a = helper(piles, mid);
-
-            if (a <= h) {
-                max = mid - 1;
-            } else {
-                min = mid + 1;
-            }
+        for (int i : nums) {
+            high = Math.max(high, i);
         }
-        return (int)min ;
+        long ans = high;
 
+        while (low <= high) {
+
+            long mid = low + ((high - low) / 2);
+
+            if (helper(nums, mid, h)) {
+                ans = mid ;
+                high = mid - 1;
+            }
+
+            else {
+                low = mid + 1;
+            }
+
+        }
+
+        return (int)ans;
     }
 }
