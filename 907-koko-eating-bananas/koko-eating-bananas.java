@@ -36,6 +36,6 @@ class Solution {
 
         }
 
-        return (int)ans;
+        return (int)low;
     }
 }
