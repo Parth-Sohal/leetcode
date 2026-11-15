@@ -9,31 +9,36 @@
  * }
  */
 class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
 
-        ListNode dummy = new ListNode(-1);
-        ListNode curr = dummy ; 
-        ListNode temp = head;
+    // recursive 
 
+    public ListNode delete(ListNode curr) {
 
-        while(temp != null){
-
-            if(temp.next != null && temp.val == temp.next.val){
-                while(temp.next  != null && temp.val == temp.next.val){
-                    temp = temp.next ;
-                }
-                
-            }else{
-                curr.next = temp ; 
-                curr = curr.next ; 
-            }
-
-            temp = temp.next ; 
-            
+        if (curr == null || curr.next == null) {
+            return curr;
         }
 
-        curr.next = null ; 
-        return dummy.next ;
+        ListNode temp = curr;
+        ListNode next = temp.next;
 
+        ListNode newHead = delete(next);
+
+        if (temp.val != next.val) {
+            temp.next = newHead;
+            return temp;
+        }
+
+        if ((temp.val == next.val) && newHead != null  && temp.val == newHead.val) {
+            newHead = newHead.next;
+        }
+
+        return newHead;
+
+    }
+
+    
+
+    public ListNode deleteDuplicates(ListNode head) {
+        return delete(head);
     }
 }
