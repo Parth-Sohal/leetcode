@@ -15,34 +15,34 @@
  */
 class Solution {
 
-    private int count = 0 ; 
+    // inorder of a bst is sorted
 
-    public TreeNode kth(TreeNode root , int k){
+    private int count = 0;
+    private int ans = -1;
 
-        if(root == null){
-            return null;
+    public void kth(TreeNode root , int k){
+
+        if(root == null || count >= k){
+            return ;
         }
 
 
-        TreeNode ans = kth(root.left , k);
+        kth(root.left , k);
 
         count++;
         if(count == k){
-            return root;
+           ans = root.val ;
+            return ; 
         }
 
 
-        if(ans == null){
-            ans = kth(root.right, k);
-        }
-
-
-        return ans ; 
+    
+        kth(root.right, k);
         
     }
-    
-    
+
     public int kthSmallest(TreeNode root, int k) {
-        return kth(root, k).val ; 
+        kth(root, k);
+        return ans ; 
     }
 }
