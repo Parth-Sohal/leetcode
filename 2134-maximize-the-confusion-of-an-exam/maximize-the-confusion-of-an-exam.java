@@ -1,37 +1,37 @@
 class Solution {
-    public int maxConsecutiveAnswers(String answerKey, int k) {
-
-        int n = answerKey.length() ;
-        int max = 0 ; 
+    public int maxConsecutiveAnswers(String nums, int k) {
+        
         int start = 0 ;
 
         int Tcount = 0 ; 
         int Fcount = 0 ; 
 
-        for(int i = 0 ; i < n ; i++){
+        int max = 0 ;
 
-            char ch = answerKey.charAt(i); 
 
-            if(ch == 'T')Tcount++;
-            else Fcount++; 
+        for(int i  = 0 ;  i < nums.length() ; i++){
 
-            while((i-start+1) - Math.max(Tcount,Fcount) > k){
+            if(nums.charAt(i) == 'T'){ Tcount++;}
+            else{Fcount++;}
 
-                char c = answerKey.charAt(start++);
 
-                if(c == 'T')Tcount--;
-                else Fcount--; 
+            while((i-start+1 - Math.max(Tcount ,Fcount)) > k){
+                if(nums.charAt(start) == 'T'){
+                    Tcount--;
+                }else{
+                    Fcount--;
+                }
 
+                start++;
             }
 
-            max = Math.max(max , i - start + 1);
+
+            max = Math.max(i - start + 1 , max);
 
         }
 
+
         return max ; 
 
-
-
-        
     }
 }
