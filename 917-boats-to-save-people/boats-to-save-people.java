@@ -1,26 +1,25 @@
 class Solution {
     public int numRescueBoats(int[] people, int limit) {
         Arrays.sort(people);
+        int low = 0, n = people.length;
+        int high = n - 1;
+        int count = 0;
 
-        int i = 0 ; 
-        int j = people.length - 1; 
-        int count = 0 ; 
+        while (low < high) {
 
-        while(i <= j){
-
-            int sum = people[i] + people[j] ;
-
-            if(sum <= limit){
-                i++;
+            if (people[low] + people[high] <= limit) {
+                low++;
             }
 
+            high--;
             count++;
-            j--;
 
         }
 
+        if(low == high)count++;
 
         return count ; 
 
     }
+
 }
