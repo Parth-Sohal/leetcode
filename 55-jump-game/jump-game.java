@@ -1,22 +1,26 @@
 class Solution {
     public boolean canJump(int[] nums) {
+        
+        int maxJumps = 0 , n = nums.length ; 
 
+        for(int i = 0; i < n ; i++){
 
-        int maxJumps = nums[0], n = nums.length;
-
-        for (int i = 1; i < n; i++) {
-
-            if (maxJumps >= i) {
-                maxJumps = Math.max(maxJumps, i + nums[i]);
-                if (maxJumps >= n - 1) {
-                    return true;
-                }
-            } else {
+            if(i > maxJumps){
                 return false;
             }
 
+
+            maxJumps = Math.max(i+nums[i] , maxJumps);
+
+            if(maxJumps >= n - 1){
+                return true ;
+            }
+
+
         }
 
+
         return true ; 
+
     }
 }
