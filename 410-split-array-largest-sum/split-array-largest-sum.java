@@ -1,49 +1,59 @@
 class Solution {
-    private int helper(int[] arr, int m) {
 
-        int count = 0;
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-            if (sum > m) {
-                count++;
-                sum = arr[i];
+    public boolean helper(int[] nums , int mid , int k){
+
+        int students = 1 ; 
+        int pages = 0 ; 
+
+        for(int page : nums){
+
+            if(page + pages > mid){
+
+                students++;
+
+                if(students > k){
+                    return false ;
+                }
+
+                pages = page;
+            
             }
+            else{
+                pages += page ; 
+            }
+            
         }
 
-        if (sum > 0) {
-            count++;
-        }
-
-        return count;
-
-    }
-
-    public int splitArray(int[] arr, int k) {
-
-        int low = Arrays.stream(arr).max().getAsInt();
-        int high = Arrays.stream(arr).sum();
-        int ans = -1;
+        return true; 
         
+        
+    }
+    
+    public int splitArray(int[] nums, int k) {
 
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int help = helper(arr, mid);
+        int low = 0 ; 
+        int high = 0 ; 
 
-            if (help == k) {
-                ans = mid;
-                high = mid - 1;
-            }
-
-            else if (help > k) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-
+        for(int i : nums){
+            low = Math.max(i , low);
+            high += i ;
         }
 
-        return low ;
 
+        while(low <= high){
+
+            int mid = low + (high - low)/2 ;
+
+            if(helper(nums , mid , k)){
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+            
+        }
+
+        return low ; 
+        
     }
 }
