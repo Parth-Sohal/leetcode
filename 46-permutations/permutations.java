@@ -1,37 +1,35 @@
 class Solution {
 
-    public List<List<Integer>> perm(int[] nums, List<Integer> list, int[] arr, List<List<Integer>> lists) {
-
-        if (list.size() == nums.length) {
-            lists.add(new ArrayList<>(list));
-            return lists;
+    public void perm(int[] nums , int idx , List<Integer> list ,List<List<Integer>> answer){
+        
+        if(idx == nums.length){
+            answer.add(new ArrayList<>(list));
+            return;
         }
-
-        for (int i = 0; i < arr.length; i++) {
-
-            if (arr[i] == 0) {
-                arr[i] = -1;
-
-                list.add(nums[i]);
-
-                perm(nums, list, arr, lists);
-
-                list.remove(list.size() - 1);
-
-                arr[i] = 0;
-            }
-
+        
+        for(int i = idx ; i < nums.length ; i++){
+            
+            // swap idx with i
+            int temp =  nums[i];
+            nums[i] = nums[idx];
+            nums[idx] = temp;
+            
+            
+            list.add(nums[idx]);
+            perm(nums , idx+1 , list , answer);
+            list.removeLast();
+            
+            //swap again
+            temp =   nums[i];
+            nums[i] = nums[idx];
+            nums[idx] = temp;
         }
-
-        return lists;
-
+        
     }
-
     public List<List<Integer>> permute(int[] nums) {
-
-        int[] arr = new int[nums.length];
-
-        return perm(nums,new ArrayList<>() , arr, new ArrayList<>());
-
+        List<List<Integer>> ans = new ArrayList<>();
+        perm(nums , 0 , new ArrayList<>() , ans);
+        return ans ; 
+    
     }
 }
