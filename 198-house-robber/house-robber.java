@@ -1,29 +1,26 @@
 class Solution {
 
-     public int rob2(int[] arr){
 
-        int n = arr.length;
-        int[] dp = new int[arr.length];
-        dp[n - 1] = arr[n - 1];
+    public int rob1(int[] nums , int idx , int[] dp){
 
-        for(int i = n - 2 ; i >= 0 ; i --){
-
-            int a = dp[i+1];
-            int b = arr[i];
-
-            if(i+2 < n){
-                b += dp[i+2];
-            }
-
-            dp[i] = Math.max(a, b);
-
+        if(idx >= nums.length){
+            return 0 ;
         }
 
-        return dp[0];
+        if(dp[idx] != -1){
+            return dp[idx];
+        }
 
+        int pick = nums[idx]  + rob1(nums , idx + 2 ,dp);
+        int dontPick = rob1(nums , idx + 1 , dp  );
+
+        return dp[idx] = Math.max(pick,dontPick);
+    
     }
-
+    
     public int rob(int[] nums) {
-        return rob2(nums);
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp,-1);
+        return rob1(nums, 0 , dp );
     }
 }
