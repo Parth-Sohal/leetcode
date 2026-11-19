@@ -1,9 +1,7 @@
 class Solution {
+     public static int minCostClimbingStairs(int[] cost , int idx , int[] dp ) {
 
-    // top down
-    public int minCost1(int[] cost , int idx , int[] dp) {
-
-        if(idx >=  cost.length){
+        if(idx >= cost.length ){
             return 0 ;
         }
 
@@ -11,42 +9,20 @@ class Solution {
             return dp[idx];
         }
 
-        int pickOne = cost[idx] + minCost1(cost, idx + 1 , dp);
-        int pickTwo = cost[idx] + minCost1(cost, idx + 2 ,dp);
+        int a = cost[idx] + minCostClimbingStairs(cost, idx + 1 , dp); // jump one
+        int b = cost[idx] + minCostClimbingStairs(cost , idx+2 , dp); // jump 2
 
-        return dp[idx] =  Math.min(pickOne, pickTwo);
 
+        return dp[idx] = Math.min(a,b);
     }
-
-
-    // bottom up
-    public int minCost2(int[] nums){
-
-        int n = nums.length ;
-        int[] dp = new int[nums.length];
-        dp[n - 1] = nums[n-1];
-
-
-        for(int i = n - 2; i >= 0 ; i--){
-            int a = dp[i+1];
-            int b = 0;
-
-            if(i+2 < n){
-                b = dp[i+2];
-            }
-
-            dp[i] = Math.min(a+nums[i] , b + nums[i]);
-
-        }
-
-        return Math.min(dp[0] , dp[1]);
-        
-    }
-
-
-    
-    
     public int minCostClimbingStairs(int[] cost) {
-        return minCost2(cost);
+        int[] dp = new int[cost.length];
+        Arrays.fill(dp,-1);
+
+        minCostClimbingStairs(cost , 0 , dp);
+
+        return Math.min(dp[0] , dp[1]) ;
+
+
     }
 }
