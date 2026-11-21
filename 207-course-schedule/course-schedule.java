@@ -1,51 +1,50 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        int[] indegree = new int[numCourses];
+    public boolean canFinish(int numCourses, int[][] preq) {
+        List<List<Integer>> list = new ArrayList<>();
 
         for (int i = 0; i < numCourses; i++) {
-            graph.add(new ArrayList<>());
+            list.add(new ArrayList<>());
         }
 
-        for (int[] prerequisite : prerequisites) {
-            int course = prerequisite[0];
-            int prerequisiteCourse = prerequisite[1];
+        int[] indegree = new int[numCourses];
 
-            graph.get(prerequisiteCourse).add(course);
-            indegree[course]++;
+        for (int i = 0; i < preq.length; i++) {
+            int a = preq[i][0];
+            int b = preq[i][1];
+
+            list.get(b).add(a);
+            indegree[a]++;
         }
 
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> q = new LinkedList<>();
 
-        for (int i = 0; i < indegree.length; i++) {
+        for (int i = 0; i < numCourses; i++) {
             if (indegree[i] == 0) {
-                queue.add(i);
+                q.add(i);
             }
         }
 
-        int k = 0;
- 
+        while (!q.isEmpty()) {
 
-        while (!queue.isEmpty()) {
+            int ele = q.poll();
 
-            int val = queue.poll();
-            k++;
-
-            for (Integer neighbour : graph.get(val)) {
-                indegree[neighbour]--;
-                if (indegree[neighbour] == 0) {
-                    queue.add(neighbour);
+            for (int i = 0; i < list.get(ele).size(); i++) {
+                int nextCourse = list.get(ele).get(i);
+                indegree[nextCourse]--;
+                if (indegree[nextCourse] == 0) {
+                    q.add(nextCourse);
                 }
             }
 
         }
 
-        if (k != numCourses) {
-            return false;
+        for (int i : indegree) {
+            if (i != 0) {
+                return false;
+            }
         }
 
-        return true ;
+        return true;
 
     }
 }
