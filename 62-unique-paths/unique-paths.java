@@ -17,13 +17,38 @@ class Solution {
 
     }
 
-    public int uniquePaths(int m, int n) {
-        int[][] dp = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                dp[i][j] = -1;
+    public  int uniquePaths2(int row, int col ){
+
+        int[][] dp =   new int[row][col];
+        
+        dp[row-1][col-1] = 1;
+        
+        for(int i = row - 1 ; i >= 0; i--){
+            for(int j = col - 1 ; j >= 0; j--){
+                
+                if (i == row - 1 && j == col - 1) continue;
+
+
+                int right = 0 ; 
+                int down = 0 ; 
+                
+                if(j+1 < col){
+                    right = dp[i][j+1];
+                }
+                if(i+1 < row){
+                    down = dp[i+1][j];
+                }
+                
+                dp[i][j] = right + down;
+                
             }
         }
-        return uniquePaths(m, n, 0, 0, dp);
+        
+        return dp[0][0];
+        
+    }
+
+    public int uniquePaths(int m, int n) {
+        return uniquePaths2(m,n) ;
     }
 }
