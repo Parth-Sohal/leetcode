@@ -1,35 +1,35 @@
+// brute force
 class ProductOfNumbers {
 
-    List<Integer> list ;
-
+    List<Integer> list2;
+    int curr = 1;
 
     public ProductOfNumbers() {
-        list  = new ArrayList<Integer>();
-    }   
-    
-    public void add(int num) {
-        
-        list.add(num);
-
+        list2 = new ArrayList<>();
+        list2.add(1);
     }
-    
+
+    public void add(int num) {
+
+        if (num == 0) {
+            curr = 1;
+            list2.clear();
+            list2.add(1);
+        } else {
+            curr *= num;
+            list2.add(curr);
+        }
+    }
+
     public int getProduct(int k) {
-        
-        int n = list.size();
-        int prod = 1; 
-        for(int i = n - 1 ; i >= n - k ; --i){
-            prod *= list.get(i);
+
+        if (k >= list2.size()) {
+            return 0;
         }
 
+        int a = list2.get(list2.size() - 1);
+        int b = list2.get(list2.size() - k - 1);
 
-        return prod; 
-
+        return a / b;
     }
 }
-
-/**
- * Your ProductOfNumbers object will be instantiated and called as such:
- * ProductOfNumbers obj = new ProductOfNumbers();
- * obj.add(num);
- * int param_2 = obj.getProduct(k);
- */
