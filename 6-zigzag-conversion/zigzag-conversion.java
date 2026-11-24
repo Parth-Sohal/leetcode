@@ -1,63 +1,40 @@
 class Solution {
-    public String convert(String s, int numRows) {
+    public String convert(String s, int n) {
 
-        if(numRows == 1)return s ;
-
-        int n = s.length() ;
-
-        StringBuilder[] sbs = new StringBuilder[numRows];
-        for (int i = 0; i < numRows; i++) {
-            sbs[i] = new StringBuilder() ;
+        if (n <= 1 || n >= s.length()) {
+            return s;
         }
-        System.out.println(sbs.length);
 
-        int crrRow = 0 ;
-        int dir = 1 ; //down
-        int idx = 0 ;
+        StringBuilder[] sbs = new StringBuilder[n];
 
-        while(idx < n){
+        for (int i = 0; i < n; i++) {
+            sbs[i] = new StringBuilder();
+        }
 
-            char c = s.charAt(idx++) ;
-            sbs[crrRow].append(c) ;
+        int dir = -1;
+        int idx = 0;
 
+        for (int i = 0; i < s.length(); i++) {
 
-
-            if(dir == 1){
-
-                if(crrRow == numRows - 1){
-                    dir = -1 ;
-                    crrRow--;
-                }
-                else{
-                    crrRow++;
-                }
-
+            sbs[idx].append(s.charAt(i));
+            if (idx == 0) {
+                dir = 1;
             }
 
-            else{
-
-                if(crrRow == 0){
-                    dir = 1 ;
-                    crrRow++;
-                }
-
-                else{
-                    crrRow--;
-                }
-
+            else if (idx == n - 1) {
+                dir = -1;
             }
 
+            idx += dir;
+
         }
 
-        StringBuilder ans = new StringBuilder() ;
-
-
-        for(StringBuilder stt : sbs){
-            ans.append(stt) ;
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder row : sbs) {
+            result.append(row);
         }
 
-
-        return ans.toString(); 
+        return result.toString();
 
     }
 }
